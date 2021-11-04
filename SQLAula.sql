@@ -290,6 +290,11 @@ SELECT * FROM Person.AddressType A
 LEFT JOIN Person.AddresS B
 ON A.rowguid = B.rowguid
 
+/*RIGHT OUTER JOIN*/
+SELECT * FROM Person.BusinessEntity x
+right join PERSON.BusinessEntityAddress y
+on x.BusinessEntityID = y.BusinessEntityID
+
 /*quais pessoas tem um cartão de crédito registrado*/
 SELECT * FROM  Person.Person PP
 LEFT JOIN Sales.PersonCreditCard PC
@@ -319,6 +324,17 @@ UNION
 SELECT FirstName, Title
 FROM Person.Person
 WHERE MiddleName = 'A'
+
+/*escolher tabela de preferencia para UNION*/
+select Name
+from Person.CountryRegion
+where Name = 'Bhutan'
+
+UNION
+
+SELECT StateProvinceCode
+FROM Person.StateProvince
+WHERE name = 'Alaska'
 
 /*UNION ALL
 junta as infos inclusive dados duplicados
