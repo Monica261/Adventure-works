@@ -33,9 +33,40 @@ Nome_autor varchar(50),
 Sobrenome_autor varchar(60)
 )
 
+insert into tbl_autores(ID_autor, Nome_autor, Sobrenome_autor) values (2, 'Machado', 'Assis')
+
 select * from tbl_autores
 
 create table tbl_editoras(
 ID_editora int primary key identity,
 Nome_editora varchar(50) not null
 )
+
+/*inserir dados na tabela*/
+insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Machado de assis', 5685, 1, '20/05/1990', 50.10, 1989)
+
+select * from tbl_livro
+
+/*exluir colunas de uma tabela - drop
+alterar tabela - alter
+*/
+
+alter table tbl_livro
+drop column ID_livro 
+
+/*excluir constraint*/
+alter table tabela
+drop constraint nome_constraint
+
+alter table tbl_livro
+add ano_importacao varchar(50) not null
+constraint fk_ID_autor Foreign key (ID_autor)
+references tbl_autores
+
+drop table tbl_livro
+
+/*add pk*/
+alter table clientes
+add primary key (ID_cliente)
+
+
