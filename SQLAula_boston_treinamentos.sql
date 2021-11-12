@@ -14,7 +14,7 @@ use db_Biblioteca
 -- informa o local, taxa de crescimento e tamanho do bd, comando interno sql server
 sp_helpdb db_biblioteca
 
-/*SQL Constrains(Restrições)*/
+/*Criando tabelas e inserindo dados*/
 
 create table tbl_livro(
 ID_livro int primary key identity,
@@ -33,7 +33,7 @@ Nome_autor varchar(50),
 Sobrenome_autor varchar(60)
 )
 
-insert into tbl_autores(ID_autor, Nome_autor, Sobrenome_autor) values (2, 'Machado', 'Assis')
+insert into tbl_autores(ID_autor, Nome_autor, Sobrenome_autor) values (1, 'Sthepan', 'King')
 
 select * from tbl_autores
 
@@ -43,7 +43,7 @@ Nome_editora varchar(50) not null
 )
 
 /*inserir dados na tabela*/
-insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Machado de assis', 5685, 1, '20/05/1990', 50.10, 1989)
+insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Fernando Pessoa', 5686, 2, '20/05/1990', 50.10, '1990')
 
 select * from tbl_livro
 
@@ -69,4 +69,57 @@ drop table tbl_livro
 alter table clientes
 add primary key (ID_cliente)
 
+/*in e not in*/
+
+--retorna todos que estão no ID 1 e 2
+select * from tbl_autores ta
+where ta.ID_autor in (1 ,2)
+
+--retorna todos que não estão no ID 1 e 2
+select * from tbl_autores ta
+where ta.ID_autor not in (1 ,2)
+
+/*campos calculados*/
+use db_Biblioteca
+
+create table Produtos(
+codProduto smallint,
+nomeProduto varchar(20),
+Preco money,
+Quant smallint,
+Total as (Preco * Quant)
+)
+
+insert into Produtos values(6, 'TV', 19.00, 2)
+insert into Produtos values(2, 'DVD', 100.00, 3)
+insert into Produtos values(3, 'Cabo HDMI', 30.00, 15)
+insert into Produtos values(4, 'Cabo USB', 20.00, 10)
+insert into Produtos values(5, 'Laterna', 10.00, 6)
+
+select * from Produtos
+
+--trazer o valor total em produtos
+select sum(Total) from Produtos
+
+EXEC sp_rename 'Produtos', 'tbl_produtos', 'COLUMN';
+
+/*Indices
+permite que as aplicações em bd encontrem os dados mais rapido.
+crie indices em tabelas que recebem muitas consultas, pq ela demora pra atualizar
+*/
+
+use db_Biblioteca
+
+create index indice_nome_produto
+on dbo.Produtos(nomeProduto)
+
+/*Create rule
+as regras são configurações que permitem determinar parametros do bd deve se comportar
+como limitar faixas de valores em colunas ou especificar valores invalidos para registros.
+*/
+
+
+create rule rl_preco as @VALOR > 10.00 
+
+execute sp_bindrule rl_preco, 'Produtos.Preco'
 
