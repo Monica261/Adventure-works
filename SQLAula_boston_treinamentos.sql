@@ -34,6 +34,8 @@ Sobrenome_autor varchar(60)
 )
 
 insert into tbl_autores(ID_autor, Nome_autor, Sobrenome_autor) values (1, 'Sthepan', 'King')
+insert into tbl_autores(ID_autor, Nome_autor, Sobrenome_autor) values (2, 'Fernando', 'Pessoa')
+insert into tbl_autores(ID_autor, Nome_autor, Sobrenome_autor) values (3, 'Machado', 'De Assis')
 
 select * from tbl_autores
 
@@ -44,6 +46,7 @@ Nome_editora varchar(50) not null
 
 /*inserir dados na tabela*/
 insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Fernando Pessoa', 5686, 2, '20/05/1990', 50.10, '1990')
+insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Machado de assis', 5687, 3, '01/02/1980', 20.10, '1995')
 
 select * from tbl_livro
 
@@ -95,13 +98,15 @@ insert into Produtos values(2, 'DVD', 100.00, 3)
 insert into Produtos values(3, 'Cabo HDMI', 30.00, 15)
 insert into Produtos values(4, 'Cabo USB', 20.00, 10)
 insert into Produtos values(5, 'Laterna', 10.00, 6)
+insert into Produtos values(7, 'Mouse', 30.00, 10)
+insert into Produtos values(9, 'MousePad', 12.00, 20)
 
 select * from Produtos
 
 --trazer o valor total em produtos
 select sum(Total) from Produtos
 
-EXEC sp_rename 'Produtos', 'tbl_produtos', 'COLUMN';
+--EXEC sp_rename 'Produtos', 'tbl_produtos', 'COLUMN';
 
 /*Indices
 permite que as aplicações em bd encontrem os dados mais rapido.
@@ -118,8 +123,50 @@ as regras são configurações que permitem determinar parametros do bd deve se com
 como limitar faixas de valores em colunas ou especificar valores invalidos para registros.
 */
 
-
+--criar a regra
 create rule rl_preco as @VALOR > 10.00 
 
+--vincular essa regra a minha tabela e coluna
 execute sp_bindrule rl_preco, 'Produtos.Preco'
 
+update Produtos
+set Preco = 15.00
+where codProduto = 5
+
+select * from Produtos
+
+/*Fazer backup do banco*/
+backup database db_Biblioteca
+to disk = 'C:\SQL\teste.bak';
+go
+
+/*Concatenação de strings
+*/
+
+select a.Nome_autor + ' ' + a.Sobrenome_autor as 'Nome Completo' from tbl_autores a
+
+select 'Produto desejado: ' + p.nomeProduto as 'Lista de desejos' from Produtos p
+where p.codProduto = 7
+
+/*Colletion - assistir
+*/
+
+--para ver as opções de agrupamento
+select * from fn_helpcollations()
+
+
+/*View
+é uma tabela virtual baseada no conjunto de resultados de uma consulta sql
+*/
+
+create view vw_livrosAutores
+as select tbl_livro.Nome_Livro as livro,
+tbl_autores.Nome_autor as Autor
+from tbl_livro 
+inner join tbl_autores 
+on tbl_livro.ID_autor = tbl_autores.ID_autor
+
+select * from vw_livrosAutores
+
+-- para excluir uma view
+drop view vw_livrosAutores
