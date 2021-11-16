@@ -159,6 +159,8 @@ select * from fn_helpcollations()
 é uma tabela virtual baseada no conjunto de resultados de uma consulta sql
 */
 
+use db_Biblioteca
+
 create view vw_livrosAutores
 as select tbl_livro.Nome_Livro as livro,
 tbl_autores.Nome_autor as Autor
