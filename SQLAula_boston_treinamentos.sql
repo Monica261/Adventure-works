@@ -17,7 +17,7 @@ sp_helpdb db_biblioteca
 /*Criando tabelas e inserindo dados*/
 
 create table tbl_livro(
-ID_livro int primary key identity,
+ID_livro int identity(1,1) primary key,
 Nome_livro varchar(50) not null,
 ISBN varchar(30) not null,
 ID_autor int not null,
@@ -178,3 +178,35 @@ on tbl_livro.ID_autor = tbl_autores.ID_autor
 
 -- para excluir uma view
 drop view vw_livrosAutores
+
+/*Subconsultas(subquery)
+é uma declaração embutida em uma consulta externa
+*/
+
+--primeiro criar a tabela clientes
+create table clientes(
+ID_cliente int IDENTITY(1,1) PRIMARY KEY,
+Nome_cliente varchar(100) not null,
+Sobrenome_cliente varchar(150) not null
+)
+
+insert into clientes values('Mônica', 'Torres')
+insert into clientes values('Maria', 'Torres')
+insert into clientes values('Ana Beatriz', 'Torres')
+
+select * from clientes
+
+use db_Biblioteca
+
+--ex de subconsulta
+select (select 'Mônica') as subconsulta
+
+--total de livro por autores, dá pra fazer com join
+use db_Biblioteca
+
+select a.Nome_autor
+from tbl_livro as l
+inner join tbl_autores as a on l.Nome_livro = a.Nome_autor
+
+select * from tbl_livro
+select * from tbl_autores
