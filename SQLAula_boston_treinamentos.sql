@@ -170,8 +170,7 @@ select * from vw_livrosAutores
 
 --alterar a view
 alter view vw_livrosAutores
-as select tbl_livro.Nome_Livro as livro,
-Preco_livro as Preço,
+as select tbl_livro.Nome_Livro as livro, tbl_livro.Preco_livro as Preco,
 tbl_autores.Nome_autor as Autor
 from tbl_livro 
 inner join tbl_autores 
