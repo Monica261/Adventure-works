@@ -168,5 +168,14 @@ on tbl_livro.ID_autor = tbl_autores.ID_autor
 
 select * from vw_livrosAutores
 
+--alterar a view
+alter view vw_livrosAutores
+as select tbl_livro.Nome_Livro as livro,
+Preco_livro as Preço,
+tbl_autores.Nome_autor as Autor
+from tbl_livro 
+inner join tbl_autores 
+on tbl_livro.ID_autor = tbl_autores.ID_autor
+
 -- para excluir uma view
 drop view vw_livrosAutores
