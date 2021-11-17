@@ -68,11 +68,11 @@ references tbl_autores
 
 drop table tbl_livro
 
-/*add pk*/
+/*ADD PK*/
 alter table clientes
 add primary key (ID_cliente)
 
-/*in e not in*/
+/*IN E NOT IN*/
 
 --retorna todos que estão no ID 1 e 2
 select * from tbl_autores ta
@@ -82,7 +82,7 @@ where ta.ID_autor in (1 ,2)
 select * from tbl_autores ta
 where ta.ID_autor not in (1 ,2)
 
-/*campos calculados*/
+/*CAMPOS CALCULADOS*/
 use db_Biblioteca
 
 create table Produtos(
@@ -108,7 +108,7 @@ select sum(Total) from Produtos
 
 --EXEC sp_rename 'Produtos', 'tbl_produtos', 'COLUMN';
 
-/*Indices
+/*INDICES
 permite que as aplicações em bd encontrem os dados mais rapido.
 crie indices em tabelas que recebem muitas consultas, pq ela demora pra atualizar
 */
@@ -118,7 +118,7 @@ use db_Biblioteca
 create index indice_nome_produto
 on dbo.Produtos(nomeProduto)
 
-/*Create rule
+/*CREATE RULE
 as regras são configurações que permitem determinar parametros do bd deve se comportar
 como limitar faixas de valores em colunas ou especificar valores invalidos para registros.
 */
@@ -140,7 +140,7 @@ backup database db_Biblioteca
 to disk = 'C:\SQL\teste.bak';
 go
 
-/*Concatenação de strings
+/*CONCATENAÇÃO DE STRINGS
 */
 
 select a.Nome_autor + ' ' + a.Sobrenome_autor as 'Nome Completo' from tbl_autores a
@@ -155,7 +155,7 @@ where p.codProduto = 7
 select * from fn_helpcollations()
 
 
-/*View
+/*VIEW
 é uma tabela virtual baseada no conjunto de resultados de uma consulta sql
 */
 
@@ -180,3 +180,58 @@ on tbl_livro.ID_autor = tbl_autores.ID_autor
 
 -- para excluir uma view
 drop view vw_livrosAutores
+
+--criar a tabela clientes
+create table tbl_clientes(
+	ID_clientes int identity(1,1) primary key,
+	Nome_cliente varchar(100) not null,
+	Sobrenome_cliente varchar(100) not null,
+)
+
+use db_Biblioteca
+alter table Produtos
+add ID_Produto int identity(1,1) primary key
+
+insert into tbl_clientes values('Mônica', 'Torres')
+insert into tbl_clientes values('Maria', 'Torres')
+insert into tbl_clientes values('Beatriz', 'Torres')
+
+select * from tbl_clientes
+
+/*DECLARAÇÃO DE VAR
+uso dentro de um procedimento armazenado
+*/
+
+declare @valor int,
+		@texto varchar(40),
+		@data_nas date,
+		@preco money
+
+--atribuir valores
+set @valor = 50
+set @texto = 'Olá mundo'
+set @data_nas = getdate()
+
+select @valor as valor, @texto as texto, @data_nas as 'data de nascimento', @preco as preco
+
+--atribuir valor com select
+declare @autor varchar(50)
+select @autor = Nome_autor
+from tbl_autores
+where ID_autor = 2
+
+select @autor as 'Nome do autor'
+
+--conta var
+declare @preco money, @quantidade int, @nome varchar(30)
+set @quantidade = 5
+
+select @preco = Preco_livro, @nome = Nome_livro
+from tbl_livro
+where ID_livro = 101
+
+select @nome as 'Nome do Livro',
+@preco * @quantidade as 'Preço dos Livros'
+
+/*Conversão de dados
+*/
