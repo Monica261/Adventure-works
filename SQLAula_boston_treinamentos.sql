@@ -233,5 +233,91 @@ where ID_livro = 101
 select @nome as 'Nome do Livro',
 @preco * @quantidade as 'Preço dos Livros'
 
-/*Conversão de dados
+/*CONVERSÃO DE DADOS
+CAST E CONVERT
 */
+use db_Biblioteca
+
+--coverter a coluna do tipo 'Money' para varchar
+select 'preço do livro' + Nome_livro + ' é de R$ ' +
+cast(Preco_livro as varchar(6)) as item
+from tbl_livro
+where ID_autor = 2
+
+--convert é usado para converter datas ou usar float/real
+select 'preço do livro' + Nome_livro + ' é de R$ ' +
+convert(varchar(6), Preco_livro)
+from tbl_livro
+
+--trabalhar com datas, convertendo para o padrão 103
+select 'a data é: ' + 
+convert(varchar(15), Data_pub, 103) as 'Data publicação'
+from tbl_livro
+where ID_livro = 2
+
+/*CONDICIONAL IF E ELSE*/
+--para executar o bloco de código use BEGIN e END
+
+declare @idade float
+
+set @idade = 21
+
+if @idade >= 18
+begin
+select 'Maior de idade' as Idade
+end;
+
+else
+begin
+select 'Menor de idade' as Idade
+end;
+
+--traz todos os produtos com o preço maior que 10,00
+use db_Biblioteca
+
+declare @nome varchar(30),
+		@precoalto float
+
+select
+@nome = (Produtos.nomeProduto),
+@precoalto = (Produtos.Preco)
+from Produtos
+where ID_Produto = 2
+
+if @precoalto >= 10
+begin
+select 'Produto precisa entrar na black: ' + @nome
+end;
+
+else
+begin
+select 'Produtos preço bom pra black: ' + @nome
+end;
+
+/*WHILE*/
+
+declare @valor int
+set @valor = 0
+
+while @valor <11
+begin
+print 'numero: ' + cast(@valor as
+varchar(2))
+
+set @valor = @valor + 1
+end;
+
+-- retorna os ids a partir do 3 dos produtos
+use db_Biblioteca
+
+declare @codigo int
+set @codigo = 3
+
+while @codigo < 10
+	begin
+		select ID_Produto as id,nomeProduto as produto,
+		Preco as preço
+		from Produtos
+		where ID_Produto = @codigo
+		set @codigo = @codigo +1
+end;
