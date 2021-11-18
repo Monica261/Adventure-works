@@ -356,6 +356,23 @@ while @codigo < 10
 		set @codigo = @codigo +1
 	end;
 
+---
+declare @valormaior float
+set @valormaior = 10
+
+
+while @valormaior > 10
+begin
+	select ID_Produto as id, nomeProduto as produto,
+	Preco as preço
+	from Produtos
+	where ID_Produto = @valormaior
+	set @valormaior = @valormaior +1
+end;
+
+select @valormaior
+
+
 /*STORED PROCEDURES
 lotes de declarações SQL executados como uma subrotina
 */
