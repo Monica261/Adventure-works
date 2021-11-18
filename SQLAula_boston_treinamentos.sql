@@ -68,11 +68,11 @@ references tbl_autores
 
 drop table tbl_livro
 
-/*add pk*/
+/*ADD PK*/
 alter table clientes
 add primary key (ID_cliente)
 
-/*in e not in*/
+/*IN E NOT IN*/
 
 --retorna todos que estão no ID 1 e 2
 select * from tbl_autores ta
@@ -82,7 +82,7 @@ where ta.ID_autor in (1 ,2)
 select * from tbl_autores ta
 where ta.ID_autor not in (1 ,2)
 
-/*campos calculados*/
+/*CAMPOS CALCULADOS*/
 use db_Biblioteca
 
 create table Produtos(
@@ -108,7 +108,7 @@ select sum(Total) from Produtos
 
 --EXEC sp_rename 'Produtos', 'tbl_produtos', 'COLUMN';
 
-/*Indices
+/*INDICES
 permite que as aplicações em bd encontrem os dados mais rapido.
 crie indices em tabelas que recebem muitas consultas, pq ela demora pra atualizar
 */
@@ -118,7 +118,7 @@ use db_Biblioteca
 create index indice_nome_produto
 on dbo.Produtos(nomeProduto)
 
-/*Create rule
+/*CREATE RULE
 as regras são configurações que permitem determinar parametros do bd deve se comportar
 como limitar faixas de valores em colunas ou especificar valores invalidos para registros.
 */
@@ -140,7 +140,7 @@ backup database db_Biblioteca
 to disk = 'C:\SQL\teste.bak';
 go
 
-/*Concatenação de strings
+/*CONCATENAÇÃO DE STRINGS
 */
 
 select a.Nome_autor + ' ' + a.Sobrenome_autor as 'Nome Completo' from tbl_autores a
@@ -155,9 +155,11 @@ where p.codProduto = 7
 select * from fn_helpcollations()
 
 
-/*View
+/*VIEW
 é uma tabela virtual baseada no conjunto de resultados de uma consulta sql
 */
+
+use db_Biblioteca
 
 create view vw_livrosAutores
 as select tbl_livro.Nome_Livro as livro,
@@ -179,6 +181,7 @@ on tbl_livro.ID_autor = tbl_autores.ID_autor
 -- para excluir uma view
 drop view vw_livrosAutores
 
+<<<<<<< HEAD
 /*Subconsultas(subquery)
 é uma declaração embutida em uma consulta externa
 */
@@ -210,3 +213,190 @@ inner join tbl_autores as a on l.Nome_livro = a.Nome_autor
 
 select * from tbl_livro
 select * from tbl_autores
+=======
+--criar a tabela clientes
+create table tbl_clientes(
+	ID_clientes int identity(1,1) primary key,
+	Nome_cliente varchar(100) not null,
+	Sobrenome_cliente varchar(100) not null,
+)
+
+use db_Biblioteca
+alter table Produtos
+add ID_Produto int identity(1,1) primary key
+
+insert into tbl_clientes values('Mônica', 'Torres')
+insert into tbl_clientes values('Maria', 'Torres')
+insert into tbl_clientes values('Beatriz', 'Torres')
+
+select * from tbl_clientes
+
+/*DECLARAÇÃO DE VAR
+uso dentro de um procedimento armazenado
+*/
+
+declare @valor int,
+		@texto varchar(40),
+		@data_nas date,
+		@preco money
+
+--atribuir valores
+set @valor = 50
+set @texto = 'Olá mundo'
+set @data_nas = getdate()
+
+select @valor as valor, @texto as texto, @data_nas as 'data de nascimento', @preco as preco
+
+--atribuir valor com select
+declare @autor varchar(50)
+select @autor = Nome_autor
+from tbl_autores
+where ID_autor = 2
+
+select @autor as 'Nome do autor'
+
+--conta var
+declare @preco money, @quantidade int, @nome varchar(30)
+set @quantidade = 5
+
+select @preco = Preco_livro, @nome = Nome_livro
+from tbl_livro
+where ID_livro = 101
+
+select @nome as 'Nome do Livro',
+@preco * @quantidade as 'Preço dos Livros'
+
+/*CONVERSÃO DE DADOS
+CAST E CONVERT
+*/
+use db_Biblioteca
+
+--coverter a coluna do tipo 'Money' para varchar
+select 'preço do livro' + Nome_livro + ' é de R$ ' +
+cast(Preco_livro as varchar(6)) as item
+from tbl_livro
+where ID_autor = 2
+
+--convert é usado para converter datas ou usar float/real
+select 'preço do livro' + Nome_livro + ' é de R$ ' +
+convert(varchar(6), Preco_livro)
+from tbl_livro
+
+--trabalhar com datas, convertendo para o padrão 103
+select 'a data é: ' + 
+convert(varchar(15), Data_pub, 103) as 'Data publicação'
+from tbl_livro
+where ID_livro = 2
+
+/*CONDICIONAL IF E ELSE*/
+--para executar o bloco de código use BEGIN e END
+
+declare @idade float
+
+set @idade = 21
+
+if @idade >= 18
+begin
+select 'Maior de idade' as Idade
+end;
+
+else
+begin
+select 'Menor de idade' as Idade
+end;
+
+--traz todos os produtos com o preço maior que 10,00
+use db_Biblioteca
+
+declare @nome varchar(30),
+		@precoalto float
+
+select
+@nome = (Produtos.nomeProduto),
+@precoalto = (Produtos.Preco)
+from Produtos
+where ID_Produto = 2
+
+if @precoalto >= 10
+begin
+select 'Produto precisa entrar na black: ' + @nome
+end;
+
+else
+begin
+select 'Produtos preço bom pra black: ' + @nome
+end;
+
+/*WHILE*/
+
+declare @valor int
+set @valor = 0
+
+while @valor <= 10
+begin
+print 'numero: ' + cast(@valor as
+varchar(2))
+
+set @valor = @valor + 1
+end;
+
+-- retorna os ids a partir do 3 dos produtos
+use db_Biblioteca
+
+declare @codigo int
+set @codigo = 3
+
+while @codigo < 10
+	begin
+		select ID_Produto as id,nomeProduto as produto,
+		Preco as preço
+		from Produtos
+		where ID_Produto = @codigo 
+		set @codigo = @codigo +1
+	end;
+
+/*STORED PROCEDURES
+lotes de declarações SQL executados como uma subrotina
+*/
+
+-- criar procedimento armazenado
+use db_Biblioteca
+create procedure teste
+as 
+select 'Mônica Torres' as Nome
+
+--executar procedimento
+exec teste
+
+-- procedimento com nome e preço produtos
+
+--criar
+create procedure ProdutoValores
+as
+select p.nomeProduto, p.Preco * p.Quant as 'valor total'
+from Produtos p
+
+--executar
+exec ProdutoValores
+
+--atualizar
+alter procedure ProdutoValores
+as
+select p.nomeProduto, p.Preco * p.Quant as 'valor total', p.Quant
+from Produtos p
+
+--apagar
+drop procedure ProdutoValores
+
+--verificar conteudo armazenado na procedure
+exec sp_helptext ProdutoValores
+
+--procedimento criptografado
+alter procedure ProdutoValores
+with encryption
+as
+select p.nomeProduto, p.Preco * p.Quant as 'valor total', p.Quant
+from Produtos p
+
+exec ProdutoValores
+exec sp_helptext ProdutoValores
