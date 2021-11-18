@@ -296,7 +296,7 @@ declare @idade float
 
 set @idade = 21
 
-if @idade >= 18
+if @idade >= 18 
 begin
 select 'Maior de idade' as Idade
 end;
@@ -386,7 +386,6 @@ as
 select p.nomeProduto, p.Preco * p.Quant as 'valor total', p.Quant
 from Produtos p
 
-
 --apagar
 drop procedure ProdutoValores
 
@@ -440,3 +439,42 @@ select * from dbo.clientes
 
 delete from clientes
 where ID_cliente = 11
+
+/*FUNÇÕES DEFINIDAS PELO USUARIO*/
+
+--criar a tabela alunos
+use db_Biblioteca
+CREATE TABLE TBL_NOMEALUNO( 
+ COD_ALUNO SMALLINT IDENTITY NOT NULL,
+ NOME_ALUNO VARCHAR(30) NOT NULL, 
+ NOTA1 TINYINT NOT NULL,
+ NOTA2 TINYINT NOT NULL, 
+ NOTA3 TINYINT NOT NULL,
+ NOTA4 TINYINT NOT NULL,
+ CONSTRAINT PK_COD_ALUNO PRIMARY KEY (COD_ALUNO));
+
+ INSERT INTO TBL_NOMEALUNO (NOME_ALUNO, NOTA1, NOTA2, NOTA3, NOTA4)
+ VALUES 
+ ('JOÃO', 5.6, 7.4, 5.3, 4.9),
+ ('PAULO',5.3, 8.4, 3.3, 5.9),
+ ('MARIA',9.3, 6.4, 3.1, 5.7),
+ ('MARTA',8.3, 4.4, 7.3, 6.9);
+
+ select * from TBL_NOMEALUNO
+
+--função escalar - retorna apenas um único valor especifico
+create function nota_media(@nome varchar(30))
+returns real
+as
+begin
+	declare @media real
+	select @media = (al.nota1 + al.nota2 + al.nota3 + al.nota4 * 2)/5.00
+	from TBL_NOMEALUNO al
+	where al.nome_aluno = @nome
+	return @media
+end;
+
+--aplicar função escalar
+select dbo.nota_media('MARIA') as 'Média do aluno'
+
+--função com valor de tabela embutida(inline)
