@@ -288,6 +288,7 @@ convert(varchar(15), Data_pub, 103) as 'Data publicação'
 from tbl_livro
 where ID_livro = 2
 
+
 /*CONDICIONAL IF E ELSE*/
 --para executar o bloco de código use BEGIN e END
 
@@ -379,11 +380,12 @@ from Produtos p
 --executar
 exec ProdutoValores
 
---atualizar
+--alterar procedure
 alter procedure ProdutoValores
 as
 select p.nomeProduto, p.Preco * p.Quant as 'valor total', p.Quant
 from Produtos p
+
 
 --apagar
 drop procedure ProdutoValores
@@ -400,3 +402,41 @@ from Produtos p
 
 exec ProdutoValores
 exec sp_helptext ProdutoValores
+
+--alter procedure teste, definir parametros
+alter procedure teste
+(@par1 as date, @par2 as varchar(20))
+as 
+select convert(varchar(30), @par1, 103) as data
+select @par2 as nome
+
+--passar o valor dos parametros na exec
+exec teste '26/11/1999', 'Mônica'
+
+--passar o valor dos parametros por nome
+exec teste @par1 = '1999-11-26', @par2 = 'Mônica'
+
+alter procedure ProdutoValores
+(@ID smallint, @Preco money)
+as
+select p.nomeProduto as nome, p.Preco as preço
+from Produtos p
+where p.codProduto > @ID and p.Preco > @Preco
+
+exec ProdutoValores @ID = 1, @Preco = 10
+
+--procedure inserção de dados na tabela Cliente
+use db_Biblioteca
+alter procedure a_nome_cliente(
+@nome varchar(50), @sobrenome varchar(50))
+as
+insert into dbo.clientes(Nome_cliente, Sobrenome_cliente)
+values(@nome, @sobrenome)
+
+--execução e verificação
+exec a_nome_cliente @nome = 'Paulo', @sobrenome = 'Silva'
+
+select * from dbo.clientes
+
+delete from clientes
+where ID_cliente = 11
