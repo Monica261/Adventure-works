@@ -213,7 +213,7 @@ inner join tbl_autores as a on l.Nome_livro = a.Nome_autor
 
 select * from tbl_livro
 select * from tbl_autores
-=======
+
 --criar a tabela clientes
 create table tbl_clientes(
 	ID_clientes int identity(1,1) primary key,
@@ -495,3 +495,35 @@ end;
 select dbo.nota_media('MARIA') as 'Média do aluno'
 
 --função com valor de tabela embutida(inline)
+create function retorna_itens (@valor real)
+returns table
+as
+return(
+select l.Nome_livro, a.ID_autor, a.Nome_autor
+from tbl_livro l
+inner join tbl_autores a on l.ID_autor = a.ID_autor
+where l.Preco_livro > @valor
+)
+
+select Nome_livro, Nome_autor --passar o parametro
+from retorna_itens(10.00) -- definir na função o procedimento
+
+/*TRIGGERS
+um tipo especial de Stored Procedure que é executada automaticamente
+quando um usuario realiza uma operação de modificação de dados em
+uma tabela especificada.
+*/
+
+--criar um trigger after - exemplo
+create trigger teste_trigger_after
+on tbl_editoras
+after insert
+as
+print 'Olá mundo!'
+
+--para disparar
+insert into tbl_editoras values('Editora10')
+
+--verificar se registro foi inserido
+select * from tbl_editoras
+
