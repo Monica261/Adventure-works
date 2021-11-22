@@ -46,7 +46,7 @@ Nome_editora varchar(50) not null
 
 /*inserir dados na tabela*/
 insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Fernando Pessoa', 5686, 2, '20/05/1990', 50.10, '1990')
-insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Machado de assis', 5687, 3, '01/02/1980', 20.10, '1995')
+insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Machado de assis', 5687, 1, '01/02/1980', 20.10, '1995')
 
 select * from tbl_livro
 
@@ -181,7 +181,7 @@ on tbl_livro.ID_autor = tbl_autores.ID_autor
 -- para excluir uma view
 drop view vw_livrosAutores
 
-<<<<<<< HEAD
+
 /*Subconsultas(subquery)
 é uma declaração embutida em uma consulta externa
 */
@@ -522,8 +522,89 @@ as
 print 'Olá mundo!'
 
 --para disparar
-insert into tbl_editoras values('Editora10')
+insert into tbl_editoras values('Editora12')
 
 --verificar se registro foi inserido
 select * from tbl_editoras
+
+--trigger na tabela editora apos insert
+create trigger trigger_after
+on tbl_editoras
+after insert
+as
+insert into tbl_autores(ID_autor, Nome_autor, Sobrenome_autor) values (4, 'Jhon', 'Gren')
+insert into tbl_livro(Nome_livro, ISBN, ID_autor, Data_pub, Preco_livro, ano_importacao) values('Alasca', 5688, 2, '01/02/2016', 35.20, '2016')
+
+--dispara
+insert into tbl_editoras values('Editora 14')
+
+--verifica inserção
+select * from tbl_editoras
+select * from tbl_autores
+select * from tbl_livro
+
+--trigger instead of insert é criado no lugar de outro trigger
+create trigger teste_trigger_insteadof
+on tbl_editoras
+instead of insert
+as
+print 'Olá, registro não inserido';
+
+--apagar trigger
+drop trigger teste_trigger_insteadof
+
+insert into tbl_editoras values('Editora 16')
+
+select * from tbl_editoras
+
+--desabilitar uma trigger
+alter table tbl_editoras enable trigger teste_trigger_insteadof
+print 'trigger desabilitada'
+
+--verificar se existe alguma trigger criada pra uma determinada tabela
+exec sp_helptrigger @tabname=tbl_editoras
+
+--verificar todas as triggers existentes no banco
+use db_Biblioteca
+select *
+from sys.triggers
+where is_disabled = 1 or is_disabled = 0 --0 = desabilitadas 1 = habilitadas
+
+--update dentro de uma trigger - pode ser disparada por mais de uma operação distinta
+alter trigger trigger_after_autores
+on tbl_autores
+after insert, update
+as
+if update(nome_autor)
+	begin
+		print 'nome do autor alterado'
+	end;
+else
+	begin
+		print 'nome do autor não alterado'
+	end;
+
+update tbl_autores
+set Nome_autor = 'Paulo'
+where ID_autor = 2 --nome do autor alterado
+
+update tbl_autores
+set Sobrenome_autor = 'Coelho'
+where ID_autor = 2 --nome do autor não alterado
+
+
+/*Alinhamento de trigger dml
+quando um trigger disparado provoca o disparo de outro
+*/
+create table tbl_trigger_recursivo(
+codigo int primary key
+)
+
+drop table tbl_trigger_recursivo
+
+--triggers programadas para funcionar
+alter database db_Biblioteca
+set recursive_triggers on
+
+
 
