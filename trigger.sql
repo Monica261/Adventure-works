@@ -63,12 +63,12 @@ drop trigger trg_ajusteSaldos
 --
 
 insert into tblVendas(produto, quantidade, data)
-values('celular', 10, getdate());
+values('TV', 30, getdate());
 
 
 select * from tblVendas
 select * from tblsaldos
 select * from tblhistoricoVendas
 
-delete from tblsaldos
-where produto = 'TV'
+delete from tblVendas
+where produto = 'celular'
