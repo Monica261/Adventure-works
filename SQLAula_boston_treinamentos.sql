@@ -130,8 +130,8 @@ create rule rl_preco as @VALOR > 10.00
 execute sp_bindrule rl_preco, 'Produtos.Preco'
 
 update Produtos
-set Preco = 15.00
-where codProduto = 5
+set Preco = 10.50
+where codProduto = 7
 
 select * from Produtos
 
@@ -318,7 +318,7 @@ select
 from Produtos
 where ID_Produto = 2
 
-if @precoalto >= 10
+if @precoalto > 10
 begin
 select 'Produto precisa entrar na black: ' + @nome
 end;
@@ -353,7 +353,7 @@ while @codigo < 10
 		Preco as preço
 		from Produtos
 		where ID_Produto = @codigo 
-		set @codigo = @codigo +1
+		set @codigo = @codigo + 1
 	end;
 
 ---
@@ -382,6 +382,9 @@ use db_Biblioteca
 create procedure teste
 as 
 select 'Mônica Torres' as Nome
+
+--apaga a procedure
+drop procedure teste
 
 --executar procedimento
 exec teste
