@@ -120,6 +120,46 @@ add email varchar(150);
 /*modify*/
 alter table aluno modify column email varchar(150) after idade;
 
+alter table aluno modify column cpf varchar(25);
+
 /*drop*/
 alter table aluno
 drop column cpf;
+
+/*Primary key 1FN*/
+use universidade_u;
+
+update aluno
+set cpf = '962.003.340-05'
+where nome = 'Olivia Castro';
+
+update aluno
+set cpf = '648.489.030-76'
+where nome = 'Mônica Torres';
+
+update aluno
+set cpf = '309.939.810-11'
+where nome = 'Paulo Oliveira';
+
+update aluno
+set cpf = '618.033.790-06'
+where nome = 'Pedro Vergara';
+
+update aluno
+set cpf = '172.544.910-29'
+where nome = 'Caio Valencio';
+
+update aluno
+set cpf = '011.131.600-63'
+where nome = 'Ana Barros';
+
+select * from aluno;
+
+alter table aluno modify column cpf varchar(25) primary key;
+
+/*para remover uma chave primaria é apagando a coluna*/
+alter table aluno drop cpf;
+alter table aluno add column cpf varchar(25);
+
+/*criando a chave artificial*/
+alter table aluno add idaluno int primary key auto_increment;
