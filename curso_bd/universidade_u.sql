@@ -126,7 +126,7 @@ alter table aluno modify column cpf varchar(25);
 alter table aluno
 drop column cpf;
 
-/*Primary key 1FN*/
+/*Primary key 1FN - identifica de forma unica um registro em uma tabela*/
 use universidade_u;
 
 update aluno
@@ -163,3 +163,31 @@ alter table aluno add column cpf varchar(25);
 
 /*criando a chave artificial*/
 alter table aluno add idaluno int primary key auto_increment;
+
+/*1FN atributos compostos*/
+alter table aluno add logradouro varchar(100);
+alter table aluno add numero varchar(10);
+alter table aluno add complemento varchar(20);
+alter table aluno add bairro varchar(100);
+alter table aluno add cidade varchar(50);
+alter table aluno add estado char(2);
+
+select * from aluno;
+
+update aluno
+set logradouro = 'Av. Joaquim Moreira Ávila', numero = '296', complemento = 'bairro', bairro = 'Jardim Minas Gerais', cidade = 'sjc', estado = 'SP'
+where idaluno = 2;
+
+/*executar depois de preencher todos*/
+alter table aluno drop column endreco;
+
+/*1FN - atributos multivalorados*/
+create table telefone(
+idtelefone int auto_increment primary key,
+numero varchar(20),
+tipo char(3)
+);
+
+insert into telefone(numero, tipo) values('12 98280-5148', 'res');
+
+select * from telefone
