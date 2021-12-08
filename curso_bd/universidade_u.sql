@@ -222,5 +222,20 @@ alter table telefone add constraint fk_aluno_telefone /*definir a constraint dep
 foreign key (fk_idaluno)
 references aluno(idaluno); /*refenrencia de onde esta vindo*/
 
-desc telefone
+desc telefone;
 
+/*Cardinalidade 1:n - inserindo registros relacionados*/
+select * from aluno;
+
+insert into telefone(numero, tipo, fk_idaluno) values('11 98256-4287', 'res', 1);
+
+/*atualizando id dos alunos*/
+update telefone
+set fk_idaluno = 2
+where idtelefone = 1;
+
+update telefone
+set fk_idaluno = 4
+where idtelefone = 2;
+
+select * from telefone;
