@@ -239,3 +239,38 @@ set fk_idaluno = 4
 where idtelefone = 2;
 
 select * from telefone;
+
+/*Cardinalidade 1:1 - modelagem fisica*/
+create table endereco (
+    numero varchar(10),
+    logradouro varchar(100),
+    bairro varchar(100),
+    complemento varchar(20),
+    cidade varchar(50),
+    estado char(2),
+    idendereco int auto_increment PRIMARY KEY,
+    fk_idaluno int
+);
+
+alter table endereco add constraint fk_aluno_endereco
+foreign key (fk_idaluno)
+references aluno (idaluno);
+
+select * from endereco;
+desc endereco;
+
+/*inserindo na tabela endereco dados da tabela aluno*/
+insert into endereco(
+numero, logradouro, bairro, complemento, cidade, estado, fk_idaluno
+)
+select numero, logradouro, bairro, complemento, cidade, estado, idaluno
+from aluno;
+
+alter table aluno drop column logradouro;
+alter table aluno drop column numero;
+alter table aluno drop column bairro;
+alter table aluno drop column complemento;
+alter table aluno drop column cidade;
+alter table aluno drop column endereco;
+
+select * from aluno;
