@@ -274,3 +274,26 @@ alter table aluno drop column cidade;
 alter table aluno drop column endereco;
 
 select * from aluno;
+
+select * from endereco as e
+where e.fk_idaluno = 1;
+
+/*criando a tabela curso*/
+create table curso(
+idcurso int auto_increment primary key,
+descricao varchar(200)
+);
+
+insert into curso(descricao) values('curso de js');
+insert into curso(descricao) values('curso mongo e nodeJS');
+insert into curso(descricao) values('curso de Angular');
+insert into curso(descricao) values('curso de React');
+
+select * from curso;
+
+/*Cardinalidade de relacionamento n:n*/
+alter table aluno_curso add constraint fk_curso_aluno
+foreign key(fk_idcurso) references curso(idcurso);
+
+alter table aluno_curso add constraint fk_aluno_curso
+foreign key(fk_idaluno) references curso(idaluno);
