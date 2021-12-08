@@ -200,7 +200,6 @@ update aluno
 set logradouro = 'Av. Comendador Vicente de Paulo Penido', numero = '532', complemento = '', bairro = 'Jardim Aquarius', cidade = 'sjc', estado = 'SP'
 where idaluno = 6;
 
-
 /*executar depois de preencher todos*/
 alter table aluno drop column endreco;
 
@@ -214,5 +213,14 @@ tipo char(3)
 insert into telefone(numero, tipo) values('12 98280-5148', 'res');
 insert into telefone(numero, tipo) values('12 98056-9587', 'pes');
 
-select * from telefone
+select * from telefone;
+
+/*Cardinalidade 1:n modelagem fisica - relacionamento FK*/
+alter table telefone add column fk_idaluno int;
+
+alter table telefone add constraint fk_aluno_telefone /*definir a constraint depois de criar a tabela*/
+foreign key (fk_idaluno)
+references aluno(idaluno); /*refenrencia de onde esta vindo*/
+
+desc telefone
 
