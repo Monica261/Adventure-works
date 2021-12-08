@@ -16,6 +16,8 @@ endereco text,
 nome varchar(25)
 );
 
+drop table aluno;
+
 /*inserindo dados na tabela alunos*/
 insert into aluno values('F', 22, '2018-01-20', '1235195705', 250.50, 1, 'Abilia Machado, 53, bloco 17 apto 14 - sjc', 'Mônica Torres');
 insert into aluno values('M', 30, '2016-08-10', '33604875', 400.10, 1, 'Av. Joaquim Moreira Ávila, 296 - Jardim Minas Gerais', 'Paulo Oliveira');
@@ -175,8 +177,29 @@ alter table aluno add estado char(2);
 select * from aluno;
 
 update aluno
+set logradouro = 'Abilia Machado', numero = '53', complemento = 'bloco 17 apto 14', bairro = 'Vila tatetuba', cidade = 'sjc', estado = 'SP'
+where idaluno = 1;
+
+update aluno
 set logradouro = 'Av. Joaquim Moreira Ávila', numero = '296', complemento = 'bairro', bairro = 'Jardim Minas Gerais', cidade = 'sjc', estado = 'SP'
 where idaluno = 2;
+
+update aluno
+set logradouro = 'Rua Peixoto Gomide', numero = '707', complemento = '', bairro = 'Bela Vista', cidade = 'são paulo', estado = 'SP'
+where idaluno = 3;
+
+update aluno
+set logradouro = 'Av. Ver. José Diniz', numero = '3725', complemento = 'Cj. 23', bairro = 'Brooklin', cidade = 'são paulo', estado = 'SP'
+where idaluno = 4;
+
+update aluno
+set logradouro = 'Rua Dr. Ricardo Edwards', numero = '95', complemento = '', bairro = 'Vila Industrial', cidade = 'sjc', estado = 'SP'
+where idaluno = 5;
+
+update aluno
+set logradouro = 'Av. Comendador Vicente de Paulo Penido', numero = '532', complemento = '', bairro = 'Jardim Aquarius', cidade = 'sjc', estado = 'SP'
+where idaluno = 6;
+
 
 /*executar depois de preencher todos*/
 alter table aluno drop column endreco;
@@ -189,5 +212,7 @@ tipo char(3)
 );
 
 insert into telefone(numero, tipo) values('12 98280-5148', 'res');
+insert into telefone(numero, tipo) values('12 98056-9587', 'pes');
 
 select * from telefone
+
