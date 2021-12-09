@@ -348,7 +348,6 @@ select * from aluno;
 
 /*funções de agregação*/
 use universidade_u;
-use universidade_u;
 
 /*total de registros na tabela*/
 select count(*) from aluno;
