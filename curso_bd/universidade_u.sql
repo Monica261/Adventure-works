@@ -292,8 +292,56 @@ insert into curso(descricao) values('curso de React');
 select * from curso;
 
 /*Cardinalidade de relacionamento n:n*/
+create table aluno_curso(
+    fk_idaluno int,
+    idalunocurso int auto_increment PRIMARY KEY,
+    fk_idcurso int
+);
+
 alter table aluno_curso add constraint fk_curso_aluno
 foreign key(fk_idcurso) references curso(idcurso);
 
 alter table aluno_curso add constraint fk_aluno_curso
-foreign key(fk_idaluno) references curso(idaluno);
+foreign key(fk_idaluno) references aluno(idaluno);
+
+use universidade_u;
+
+select * from curso;
+select * from aluno;
+
+insert into aluno_curso(fk_idaluno, fk_idcurso) values(1, 4);
+select * from aluno_curso;
+
+/*Enum - determina no banco os tipos possiveis para aquela tabela*/
+select * from telefone;
+
+alter table telefone drop column tipo;
+alter table telefone add tipo enum('res', 'com', 'cel');
+
+update telefone
+set tipo = 'com'
+where idtelefone = 2;
+
+/*Null e not null*/
+select * from telefone;
+
+alter table telefone modify column numero varchar(20) not null;
+alter table telefone modify column tipo enum('res', 'com', 'cel') not null;
+alter table telefone modify column fk_idaluno int not null;
+
+desc telefone;
+
+delete from telefone
+where idtelefone = 3; 
+
+/*Unique*/
+alter table aluno add constraint uc_aluno_cpf unique(cpf);
+
+insert into aluno(sexo, idade, data_inscricao_curso, telefone, valor_pago_curso, ativo_sn, nome, cpf) values('F', 35, '2021-01-05', '12989564879', 700.00, 1, 'Antonia Starv', '172.590.910-90');
+desc aluno;
+
+/*determinando campos importantes como não nulos*/
+alter table aluno modify column nome varchar(25) not null;
+alter table aluno modify column cpf varchar(25) not null;
+
+select * from aluno;
