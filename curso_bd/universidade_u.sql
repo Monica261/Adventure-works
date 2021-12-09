@@ -337,7 +337,7 @@ where idtelefone = 3;
 /*Unique*/
 alter table aluno add constraint uc_aluno_cpf unique(cpf);
 
-insert into aluno(sexo, idade, data_inscricao_curso, telefone, valor_pago_curso, ativo_sn, nome, cpf) values('F', 35, '2021-01-05', '12989564879', 700.00, 1, 'Antonia Starv', '172.590.910-90');
+insert into aluno(sexo, idade, data_inscricao_curso, telefone, valor_pago_curso, ativo_sn, nome, cpf) values('F', 35, '2021-01-05', '12989564879', 700.00, 1, 'Antonia Starv', '172.590.900-90');
 desc aluno;
 
 /*determinando campos importantes como não nulos*/
@@ -345,3 +345,35 @@ alter table aluno modify column nome varchar(25) not null;
 alter table aluno modify column cpf varchar(25) not null;
 
 select * from aluno;
+
+/*funções de agregação*/
+use universidade_u;
+use universidade_u;
+
+/*total de registros na tabela*/
+select count(*) from aluno;
+
+/*total de registros distintos na tabela*/
+select count(distinct(nome)) from aluno;
+
+/*projeta o maior valor de todos os registros de uma tabela*/
+select max(valor_pago_curso) from aluno;
+
+select max(valor_pago_curso) 
+from aluno
+where sexo = 'F';
+
+/*projeta o menor valor de todos os registros de uma tabela*/
+select min(valor_pago_curso) from aluno;
+
+/*projeta a média dos valores de todos os registros de uma tabela*/
+select avg(valor_pago_curso) from aluno;
+
+/*projeta a soma dos valores de todos os registros de uma tabela*/
+select sum(valor_pago_curso) from aluno;
+
+select 
+	min(valor_pago_curso) as 'vl minimo pago em um curso',
+    max(valor_pago_curso) as 'vl maximo pago em um curso',
+    sum(valor_pago_curso) as 'vl total de todos os cursos'
+from aluno;
