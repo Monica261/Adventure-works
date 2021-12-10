@@ -365,6 +365,10 @@ where sexo = 'F';
 /*projeta o menor valor de todos os registros de uma tabela*/
 select min(valor_pago_curso) from aluno;
 
+select min(valor_pago_curso) 
+from aluno
+where ativo_sn != 0;
+
 /*projeta a média dos valores de todos os registros de uma tabela*/
 select avg(valor_pago_curso) from aluno;
 
@@ -376,3 +380,11 @@ select
     max(valor_pago_curso) as 'vl maximo pago em um curso',
     sum(valor_pago_curso) as 'vl total de todos os cursos'
 from aluno;
+
+/*Funções ceil, floor, truncate e round*/
+
+/*ceil - arredonda a função para cima*/
+select ceil(17.4) as valor;
+
+/*floor - arredonda a função para cima*/
+select floor(18.9) as valor;
