@@ -382,9 +382,42 @@ select
 from aluno;
 
 /*Funções ceil, floor, truncate e round*/
+use universidade_u;
 
 /*ceil - arredonda a função para cima*/
 select ceil(17.4) as valor;
 
-/*floor - arredonda a função para cima*/
+/*floor - arredonda a função para baixo*/
 select floor(18.9) as valor;
+
+select avg(floor(valor_pago_curso)) 
+from aluno
+where ativo_sn = 0;
+
+/*truncate - trunca a função*/
+select truncate(22.684, 1) as valor; /*passa a qntd de nº que quero na fração*/
+
+/*round - arredondamento de fração*/
+select round(22.62, 1) as valor;
+
+select sum(round(valor_pago_curso)) as 'valor total arrendondado F'
+from aluno
+where sexo = 'F' and ativo_sn = 1;
+
+select round(avg(valor_pago_curso), 2) as 'valor total arrendondado F'
+from aluno
+where idaluno in(2, 6, 1);
+
+/*Group by*/
+use universidade_u;
+
+select nome, ceil(sum(valor_pago_curso)) as 'valor total arrendondado F'
+from aluno
+where idaluno in(2, 6, 1)
+group by nome;
+
+select nome, count(distinct((ativo_sn)))
+from aluno
+where ativo_sn = 1
+group by nome;
+
