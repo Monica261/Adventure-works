@@ -421,3 +421,10 @@ from aluno
 where ativo_sn = 1
 group by nome;
 
+select sexo, round(avg(idade)) as 'media de idade por sexo'
+from aluno
+group by sexo;
+
+select idade, ceil((ativo_sn)) as 'media de ativos por idade'
+from aluno
+group by idade;
