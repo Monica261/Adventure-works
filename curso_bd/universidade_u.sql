@@ -309,7 +309,7 @@ use universidade_u;
 select * from curso;
 select * from aluno;
 
-insert into aluno_curso(fk_idaluno, fk_idcurso) values(1, 4);
+insert into aluno_curso(fk_idaluno, fk_idcurso) values(3, 2);
 select * from aluno_curso;
 
 /*Enum - determina no banco os tipos possiveis para aquela tabela*/
@@ -337,7 +337,7 @@ where idtelefone = 3;
 /*Unique*/
 alter table aluno add constraint uc_aluno_cpf unique(cpf);
 
-insert into aluno(sexo, idade, data_inscricao_curso, telefone, valor_pago_curso, ativo_sn, nome, cpf) values('F', 35, '2021-01-05', '12989564879', 700.00, 1, 'Antonia Starv', '172.590.900-90');
+insert into aluno(sexo, idade, data_inscricao_curso, telefone, valor_pago_curso, ativo_sn, nome, cpf) values('F', 35, '2021-01-05', '12989564879', 700.00, 1, 'Carla Starv', '172.590.900-96');
 desc aluno;
 
 /*determinando campos importantes como não nulos*/
@@ -425,6 +425,43 @@ select sexo, round(avg(idade)) as 'media de idade por sexo'
 from aluno
 group by sexo;
 
-select idade, ceil((ativo_sn)) as 'media de ativos por idade'
+select idade, sum((ativo_sn)) as 'soma de ativos por idade'
 from aluno
 group by idade;
+
+select count(nome), ativo_sn
+from aluno
+group by ativo_sn;
+
+select sexo, min(idade) as 'menor idade do agrupamento', max(idade) as 'maior idade do agrupamento'
+from aluno
+group by sexo;
+
+select estado, count(*) /*quantos registros eu tenho por estado*/
+from endereco
+group by estado;
+
+select tipo, count(*) /*qntd de telefone por tipo*/
+from telefone
+group by tipo;
+
+/*requisitos do cliente*/
+/*estados com mais alunos*/
+select estado, count(*) total
+from endereco
+group by estado
+order by total desc
+limit 3; /*os 3 primeiros*/
+
+/*cursos mais vendidos*/
+select fk_idcurso, count(*) total
+from aluno_curso
+group by fk_idcurso
+order by total desc;
+
+/*atualizando estados*/
+select * from endereco;
+
+update endereco
+set estado = 'RJ'
+where fk_idaluno = 5;
