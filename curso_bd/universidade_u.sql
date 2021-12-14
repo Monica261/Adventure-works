@@ -465,3 +465,26 @@ select * from endereco;
 update endereco
 set estado = 'RJ'
 where fk_idaluno = 5;
+
+/*criando tabela controle gastos mensais*/
+create table gasto(
+idgasto int primary key auto_increment,
+tipo enum('previsto', 'realizado') not null,
+ano int not null,
+jan float(10,2),
+fev float(10,2),
+mar float(10,2),
+abril float(10,2),
+maio float(10,2),
+jun float(10,2),
+jul float(10,2),
+ago float(10,2),
+sete float(10,2),
+outu float(10,2),
+nov float(10,2),
+dez float(10,2)
+);
+
+select * from gasto;
+
+/*operações aritmeticas*/
