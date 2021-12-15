@@ -16,34 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `aluno`
+-- Table structure for table `telefone`
 --
 
-DROP TABLE IF EXISTS `aluno`;
+DROP TABLE IF EXISTS `telefone`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `aluno` (
-  `sexo` char(1) DEFAULT NULL,
-  `idade` int DEFAULT NULL,
-  `data_inscricao_curso` date DEFAULT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
-  `valor_pago_curso` float(10,2) DEFAULT NULL,
-  `ativo_sn` int DEFAULT NULL,
-  `nome` varchar(25) DEFAULT NULL,
-  `cpf` varchar(25) DEFAULT NULL,
-  `idaluno` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idaluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `telefone` (
+  `idtelefone` int NOT NULL AUTO_INCREMENT,
+  `numero` varchar(20) DEFAULT NULL,
+  `tipo` char(3) DEFAULT NULL,
+  `fk_idaluno` int DEFAULT NULL,
+  PRIMARY KEY (`idtelefone`),
+  KEY `fk_aluno_telefone` (`fk_idaluno`),
+  CONSTRAINT `fk_aluno_telefone` FOREIGN KEY (`fk_idaluno`) REFERENCES `aluno` (`idaluno`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `aluno`
+-- Dumping data for table `telefone`
 --
 
-LOCK TABLES `aluno` WRITE;
-/*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
-INSERT INTO `aluno` VALUES ('F',22,'2018-01-20','1235195705',250.50,1,'Mônica Torres','648.489.030-76',1),('M',30,'2016-08-10','33604875',400.10,1,'Paulo Oliveira','309.939.810-11',2),('F',20,'2021-01-15','11982506541',350.00,0,'Olivia Castro','962.003.340-05',3),('M',43,'2020-01-27','11980264891',650.20,1,'Pedro Vergara','618.033.790-06',4),('M',45,'2019-01-27','1236548927',320.20,0,'Caio Valencio','172.544.910-29',5),('F',18,'2021-01-22','1298542634',450.00,1,'Ana Barros','011.131.600-63',6),('F',35,'2021-01-05','12989564879',700.00,1,'Antonia Starv','172.590.900-98',7),('F',35,'2021-01-05','12989564879',700.00,1,'Carla Starv','172.590.900-96',8);
-/*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
+LOCK TABLES `telefone` WRITE;
+/*!40000 ALTER TABLE `telefone` DISABLE KEYS */;
+INSERT INTO `telefone` VALUES (1,'12 98280-5148','res',2),(2,'12 98056-9587','pes',4),(3,'11 98256-4287','res',1);
+/*!40000 ALTER TABLE `telefone` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-12 19:47:31
+-- Dump completed on 2021-12-15 17:21:41

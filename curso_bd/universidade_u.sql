@@ -481,8 +481,8 @@ maio float(10,2),
 jun float(10,2),
 jul float(10,2),
 ago float(10,2),
-sete float(10,2),
-outu float(10,2),
+`set` float(10,2),
+`out` float(10,2),
 nov float(10,2),
 dez float(10,2)
 );
@@ -498,12 +498,12 @@ select (26-9) as subtracao;
 
 select (36*7) as multiplicacao;
 
-insert into gasto(ano, tipo, jan, fev, mar, abr, mai, jun, jul, ago, `set`, `out`, nov, dez)values('2019', 'previsto', 18000, 17000, 19000, 20000, 17000, 18000, 18500, 18500, 1800, 17500, 18000, 17000);
+insert into gasto(ano, tipo, jan, fev, mar, abri, maio, jun, jul, ago, `set`, `out`, nov, dez)values('2019', 'previsto', 18000, 17000, 19000, 20000, 17000, 18000, 18500, 18500, 1800, 17500, 18000, 17000);
 insert into gasto(ano, tipo, jan)values('2019', 'realizado', 18353.20);
 update gasto set fev = 17555.55 where idgasto = 2;
 update gasto set mar = 19435.73 where idgasto = 2;
-update gasto set abr = 22753.12 where idgasto = 2;
-update gasto set mai = 16198.12 where idgasto = 2;
+update gasto set abril = 22753.12 where idgasto = 2;
+update gasto set maio = 16198.12 where idgasto = 2;
 update gasto set jun = 17451.88 where idgasto = 2;
 update gasto set jul = 18975.40 where idgasto = 2;
 update gasto set ago = 19163.84 where idgasto = 2;
@@ -512,4 +512,14 @@ update gasto set `out` = 17667.91 where idgasto = 2;
 update gasto set nov = 17936.33 where idgasto = 2;
 update gasto set dez = 17125.88 where idgasto = 2;
 
-select * from gasto;
+/*renomear coluna da tabela*/
+alter table gasto rename column abril to abr;
+alter table gasto rename column outu to `out`;
+
+/*média de valores por meses*/
+select round(avg(jan + fev + mar + abri + maio + jun + jul + ago)) as 'média de gastos ano'
+from gasto
+where idgasto = 1;
+
+select * from aluno;
+

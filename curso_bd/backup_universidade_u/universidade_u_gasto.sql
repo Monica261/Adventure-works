@@ -16,27 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `curso`
+-- Table structure for table `gasto`
 --
 
-DROP TABLE IF EXISTS `curso`;
+DROP TABLE IF EXISTS `gasto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `curso` (
-  `idcurso` int NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`idcurso`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `gasto` (
+  `idgasto` int NOT NULL AUTO_INCREMENT,
+  `tipo` enum('previsto','realizado') NOT NULL,
+  `ano` int NOT NULL,
+  `jan` float(10,2) DEFAULT NULL,
+  `fev` float(10,2) DEFAULT NULL,
+  `mar` float(10,2) DEFAULT NULL,
+  `abri` float(10,2) DEFAULT NULL,
+  `maio` float(10,2) DEFAULT NULL,
+  `jun` float(10,2) DEFAULT NULL,
+  `jul` float(10,2) DEFAULT NULL,
+  `ago` float(10,2) DEFAULT NULL,
+  `set` float(10,2) DEFAULT NULL,
+  `out` float(10,2) DEFAULT NULL,
+  `nov` float(10,2) DEFAULT NULL,
+  `dez` float(10,2) DEFAULT NULL,
+  PRIMARY KEY (`idgasto`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `curso`
+-- Dumping data for table `gasto`
 --
 
-LOCK TABLES `curso` WRITE;
-/*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-INSERT INTO `curso` VALUES (1,'curso de js'),(2,'curso mongo e nodeJS'),(3,'curso de Angular'),(4,'curso de React');
-/*!40000 ALTER TABLE `curso` ENABLE KEYS */;
+LOCK TABLES `gasto` WRITE;
+/*!40000 ALTER TABLE `gasto` DISABLE KEYS */;
+INSERT INTO `gasto` VALUES (1,'previsto',2019,18000.00,17000.00,19000.00,20000.00,17000.00,18000.00,18500.00,18500.00,1800.00,17500.00,18000.00,17000.00);
+/*!40000 ALTER TABLE `gasto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-12 19:47:30
+-- Dump completed on 2021-12-15 17:21:40
