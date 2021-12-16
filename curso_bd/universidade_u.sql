@@ -521,5 +521,6 @@ select round(avg(jan + fev + mar + abri + maio + jun + jul + ago)) as 'média de
 from gasto
 where idgasto = 1;
 
+use universidade_u;
 select * from aluno;
 
