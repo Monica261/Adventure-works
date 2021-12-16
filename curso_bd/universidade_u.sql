@@ -522,5 +522,7 @@ from gasto
 where idgasto = 1;
 
 use universidade_u;
+
 select * from aluno;
+
 

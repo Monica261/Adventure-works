@@ -8,16 +8,14 @@ conexao = pymysql.connect(db='universidade_u', user='root', passwd='root')
 cursor = conexao.cursor()
 
 # Executa o comando:
-coluna = input('insira a coluna ')
-aluno = input('insira o nome ')
-id = input('insira o id ')
+campo = input('escolha o campo: ')
+dado = input('dado a ser atualizado: ')
+id = input('escolha o id do aluno: ')
 
-query = f"UPDATE aluno SET {coluna} = '{aluno}' WHERE idaluno = '{id}'"
+query = f"UPDATE aluno SET {campo} = '{dado}' WHERE idaluno = {id}"
 cursor.execute(query)
 
 # Efetua um commit no banco de dados.
-# Por padrão, não é efetuado commit automaticamente. Você deve commitar para salvar
-# suas alterações.
 conexao.commit()
 
 # Finaliza a conexão
