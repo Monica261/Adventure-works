@@ -525,4 +525,7 @@ use universidade_u;
 
 select * from aluno;
 
+desc aluno;
+
+alter table aluno add idaluno float primary key auto_increment; 
 
