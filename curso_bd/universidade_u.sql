@@ -518,14 +518,24 @@ alter table gasto rename column outu to `out`;
 
 /*média de valores por meses*/
 select round(avg(jan + fev + mar + abri + maio + jun + jul + ago)) as 'média de gastos ano'
-from gasto
-where idgasto = 1;
+from gasto;
+
+select truncate((jan + fev + mar + abri + maio + jun + jul + ago + `set` + `out` + nov + dez / 12), 2) 
+as 'média' 
+from gasto;
 
 use universidade_u;
 
 select * from aluno;
 
-desc aluno;
+delete from aluno
+where idaluno = 13;
 
-alter table aluno add idaluno float primary key auto_increment; 
+/*subquerys*/
+select jan
+from gasto
+where idgasto = (select idgasto from gasto where ano = 2019 and tipo = 'realizado');
 
+select jan
+from gasto
+where idgasto = (select idgasto from gasto where ano = 2019 and tipo = 'previsto');
