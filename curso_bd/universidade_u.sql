@@ -532,10 +532,33 @@ delete from aluno
 where idaluno = 13;
 
 /*subquerys*/
-select jan
-from gasto
-where idgasto = (select idgasto from gasto where ano = 2019 and tipo = 'realizado');
+use universidade_u;
 
-select jan
-from gasto
-where idgasto = (select idgasto from gasto where ano = 2019 and tipo = 'previsto');
+/*valor realizado_previsto por mês*/
+select
+  (select jan
+  from gasto
+  where idgasto = (select idgasto from gasto where ano = 2019 and tipo = 'realizado')) 
+  -
+  (select jan
+  from gasto
+  where idgasto = (select idgasto from gasto where ano = 2019 and tipo = 'previsto')) as realizado_previsto,
+  
+  (select fev
+  from gasto
+  where idgasto = (select idgasto from gasto where ano = 2019 and tipo = 'realizado'))
+  -
+  (select fev
+  from gasto
+  where idgasto = (select idgasto from gasto where ano = 2019 and tipo = 'previsto')) as realizado_previsto_fev;
+
+select * from gasto;
+
+select nome, idade, valor_pago_curso as 'valor acima do limitado por idade'
+from aluno
+where valor_pago_curso = (
+select valor_pago_curso 
+from aluno 
+where valor_pago_curso > 250.50 and idade > 35
+order by nome desc limit 1
+);
