@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS `aluno`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `aluno` (
   `sexo` char(1) DEFAULT NULL,
-  `idade` int DEFAULT NULL,
   `data_inscricao_curso` date DEFAULT NULL,
   `telefone` varchar(20) DEFAULT NULL,
   `valor_pago_curso` float(10,2) DEFAULT NULL,
@@ -32,8 +31,9 @@ CREATE TABLE `aluno` (
   `nome` varchar(25) DEFAULT NULL,
   `cpf` varchar(25) DEFAULT NULL,
   `idaluno` int NOT NULL AUTO_INCREMENT,
+  `data_nascimento` date DEFAULT NULL,
   PRIMARY KEY (`idaluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `aluno` (
 
 LOCK TABLES `aluno` WRITE;
 /*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
-INSERT INTO `aluno` VALUES ('F',22,'2018-01-20','1235195705',250.50,1,'Mônica Torres','648.489.030-76',1),('M',30,'2016-08-10','33604875',400.10,1,'Paulo Oliveira','309.939.810-11',2),('F',20,'2021-01-15','11982506541',350.00,0,'Olivia Castro','962.003.340-05',3),('M',43,'2020-01-27','11980264891',650.20,1,'Pedro Vergara','618.033.790-06',4),('M',45,'2019-01-27','1236548927',320.20,0,'Caio Valencio','172.544.910-29',5),('F',18,'2021-01-22','1298542634',450.00,1,'Ana Barros','011.131.600-63',6),('F',35,'2021-01-05','12989564879',700.00,1,'Antonia Starv','172.590.900-98',7),('F',35,'2021-01-05','12989564879',700.00,1,'Carla Starv','172.590.900-96',8),('F',35,'2021-01-05','12989564879',700.00,1,'Paula Starv','172.590.900-89',9),('F',35,'2021-01-05','12989564547',350.20,1,'Vanessa Figueira','156.356.906-86',10),('F',35,'2021-01-05','12989564547',350.20,1,'Maria Antonia','356.896.146-36',11);
+INSERT INTO `aluno` VALUES ('F','2018-01-20','1235195705',350.50,1,'Mônica Sousa','648.489.030-76',1,'1999-11-26'),('M','2016-08-10','33604875',400.10,1,'Leandro','309.939.810-11',2,'1987-05-20'),('F','2021-01-15','11982506541',350.00,0,'Olivia Castro','962.003.340-05',3,'1978-03-10'),('M','2020-01-27','11980264891',650.20,1,'Pedro Vergara','618.033.790-06',4,'1960-12-15'),('M','2019-01-27','1236548927',320.20,0,'Caio Valencio','172.544.910-29',5,'1998-08-18'),('F','2021-01-22','1298542634',450.00,1,'Ana Barros','011.131.600-63',6,'1995-06-27'),('F','2021-01-05','12989564879',700.00,1,'Antonia Starv','172.590.900-98',7,'1986-04-03'),('F','2021-01-05','12989564879',700.00,1,'Carla Starv','172.590.900-96',8,'1995-05-30');
 /*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-15 17:21:40
+-- Dump completed on 2021-12-25 22:30:50

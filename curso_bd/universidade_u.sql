@@ -487,6 +487,8 @@ nov float(10,2),
 dez float(10,2)
 );
 
+drop table gasto;
+
 select * from gasto;
 
 /*operações aritmeticas*/
@@ -498,7 +500,7 @@ select (26-9) as subtracao;
 
 select (36*7) as multiplicacao;
 
-insert into gasto(ano, tipo, jan, fev, mar, abri, maio, jun, jul, ago, `set`, `out`, nov, dez)values('2019', 'previsto', 18000, 17000, 19000, 20000, 17000, 18000, 18500, 18500, 1800, 17500, 18000, 17000);
+insert into gasto(ano, tipo, jan, fev, mar, abr, maio, jun, jul, ago, `set`, `out`, nov, dez)values('2019', 'previsto', 18000, 17000, 19000, 20000, 17000, 18000, 18500, 18500, 1800, 17500, 18000, 17000);
 insert into gasto(ano, tipo, jan)values('2019', 'realizado', 18353.20);
 update gasto set fev = 17555.55 where idgasto = 2;
 update gasto set mar = 19435.73 where idgasto = 2;
@@ -514,7 +516,7 @@ update gasto set dez = 17125.88 where idgasto = 2;
 
 /*renomear coluna da tabela*/
 alter table gasto rename column abril to abr;
-alter table gasto rename column outu to `out`;
+alter table gasto rename column outu to `set`;
 
 /*média de valores por meses*/
 select round(avg(jan + fev + mar + abri + maio + jun + jul + ago)) as 'média de gastos ano'
@@ -525,8 +527,6 @@ as 'média'
 from gasto;
 
 use universidade_u;
-
-select * from aluno;
 
 delete from aluno
 where idaluno = 13;
@@ -562,3 +562,62 @@ from aluno
 where valor_pago_curso > 250.50 and idade > 35
 order by nome desc limit 1
 );
+
+/*Armazenando data de nascimento dos alunos*/
+use universidade_u;
+
+alter table aluno add data_nascimento date;
+
+select * from aluno;
+
+update aluno set data_nascimento = '1999-11-26' where idaluno = 1;
+update aluno set data_nascimento = '1987-05-20' where idaluno = 2;
+update aluno set data_nascimento = '1978-03-10' where idaluno = 3;
+update aluno set data_nascimento = '1960-12-15' where idaluno = 4;
+update aluno set data_nascimento = '1998-08-18' where idaluno = 5;
+update aluno set data_nascimento = '1995-06-27' where idaluno = 6;
+update aluno set data_nascimento = '1986-04-03' where idaluno = 7;
+update aluno set data_nascimento = '1995-05-30' where idaluno = 8;
+
+/*Funções de datas*/
+
+/*recuperar a data atual*/
+select curdate();
+select current_date();
+
+/*retorna data e hora atual*/
+select now();
+
+/*formatando as datas*/
+select date_format(curdate(), '%d/%m/%Y') as data_formatada;
+select date_format(curdate(), '%d/%M/%Y') as data_formatada;
+
+/*extrair parte de data*/
+select extract(month from now());/*day, month ou year*/
+
+/*add intervalos de tempos*/
+select date_add('1999-11-26', interval 4 day) as intervalo_de_dias;
+select date_format(date_add('1999-11-26 10:15:20', interval 24 hour), '%d/%m/%Y %H:%i') as intervalo_de_horas;
+/*second, minute, day, hour, month, year*/
+
+/*calculo de dias entre datas*/
+select '2019-03-20' as data_nascimento,
+curdate() as data_atual,
+datediff('2019-03-20', curdate()) as diferenca_de_dias,
+floor(datediff(curdate(), '1999-11-26') / 365) as idade_aproximada;
+
+/*calculo de meses entre datas*/
+select period_diff('202112', '199911') as diferenca_meses;
+
+/*dia do ano*/
+select dayofyear('1999-11-26') as dia_do_ano;
+
+/*calculando idade exata*/
+select timestampdiff(YEAR, '1999-11-26', curdate()) as idade;
+
+select data_nascimento,
+curdate() as data_atual,
+timestampdiff(YEAR, data_nascimento, curdate()) as idade_exata
+from aluno;
+
+alter table aluno drop idade;
