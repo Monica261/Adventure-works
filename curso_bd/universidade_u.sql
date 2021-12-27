@@ -568,7 +568,6 @@ use universidade_u;
 
 alter table aluno add data_nascimento date;
 
-select * from aluno;
 
 update aluno set data_nascimento = '1999-11-26' where idaluno = 1;
 update aluno set data_nascimento = '1987-05-20' where idaluno = 2;
@@ -587,6 +586,7 @@ select current_date();
 
 /*retorna data e hora atual*/
 select now();
+select date_format(now(), '%d/%m/%y %H:%i') as agora;
 
 /*formatando as datas*/
 select date_format(curdate(), '%d/%m/%Y') as data_formatada;
@@ -621,3 +621,10 @@ timestampdiff(YEAR, data_nascimento, curdate()) as idade_exata
 from aluno;
 
 alter table aluno drop idade;
+
+use universidade_u;
+
+set @nome = 'Mônica Sousa';
+
+select * from aluno
+where nome = 'Mônica Sousa';
