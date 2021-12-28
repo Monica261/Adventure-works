@@ -622,9 +622,25 @@ from aluno;
 
 alter table aluno drop idade;
 
+/*saber os aniversariantes do dia*/
 use universidade_u;
 
-set @nome = 'Mônica Sousa';
+select 
+	data_nascimento,
+	nome,
+	extract(month from data_nascimento) as data_nascimento_mes,
+	extract(day from data_nascimento) as data_nascimento_dia,
 
-select * from aluno
-where nome = 'Mônica Sousa';
+	curdate() as data_atual,
+	extract(month from curdate()) as mes_atual,
+	extract(day from curdate()) as dia_atual,
+	timestampdiff(YEAR, data_nascimento, curdate()) as data_atual
+from aluno
+where extract(month from data_nascimento) = extract(month from curdate()) and
+extract(day from data_nascimento) = extract(day from curdate());
+
+select * from aluno;
+
+update aluno
+set data_nascimento = '1987-12-28'
+where idaluno = 2;
