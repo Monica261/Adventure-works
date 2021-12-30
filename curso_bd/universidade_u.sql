@@ -644,3 +644,35 @@ select * from aluno;
 update aluno
 set data_nascimento = '1987-12-28'
 where idaluno = 2;
+
+/*Refatorando data_inscricao_curso e valor_pago*/
+use universidade_u;
+
+select data_inscricao_curso, valor_pago_curso from aluno;
+
+alter table aluno_curso add column data_inscricao_curso date;
+alter table aluno_curso add column valor_pago_curso float(10,2);
+
+select * from aluno_curso;
+
+
+/*query de update com uma subquery para recuperar os dados - para não precisar
+cadastrar manualmente na tabela aluno_curso*/
+
+select 
+idaluno, data_inscricao_curso, valor_pago_curso 
+from aluno
+where idaluno = 1;
+
+update 
+	aluno_curso
+set 
+	data_inscricao_curso = (select data_inscricao_curso from aluno where idaluno = 2),
+	valor_pago_curso = (select valor_pago_curso from aluno where idaluno = 2) 
+where 
+	fk_idaluno = 2;
+    
+select * from aluno_curso;
+
+/*saber quais IDS precisam da atualização ainda*/
+select count(fk_idaluno) from aluno_curso;
