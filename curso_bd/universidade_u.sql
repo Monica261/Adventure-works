@@ -662,17 +662,48 @@ cadastrar manualmente na tabela aluno_curso*/
 select 
 idaluno, data_inscricao_curso, valor_pago_curso 
 from aluno
-where idaluno = 1;
+where idaluno = 4;
 
 update 
 	aluno_curso
 set 
-	data_inscricao_curso = (select data_inscricao_curso from aluno where idaluno = 2),
-	valor_pago_curso = (select valor_pago_curso from aluno where idaluno = 2) 
+	data_inscricao_curso = (select data_inscricao_curso from aluno where idaluno = 13),
+	valor_pago_curso = (select valor_pago_curso from aluno where idaluno = 4) 
 where 
-	fk_idaluno = 2;
+	fk_idaluno = 3;
     
 select * from aluno_curso;
 
 /*saber quais IDS precisam da atualização ainda*/
 select count(fk_idaluno) from aluno_curso;
+
+/*valores default*/
+use universidade_u;
+
+alter table aluno modify column ativo_sn int default 1 not null;
+alter table aluno modify column data_inscricao_curso datetime default current_timestamp not null;
+
+commit;
+
+desc aluno;
+
+/*não precisa mais declarar o ativo_sn e nem a data_inscricao no insert*/
+insert into aluno (sexo, telefone, valor_pago_curso, nome, cpf, data_nascimento)
+values('M', 12982805784, 490.00, 'Carlos', '858.648.328-58', '1997-05-12');
+
+delete from aluno
+where idaluno = 9;
+
+select  * from aluno;
+
+/*chaves primarias compostas
+NATURAL - Tem relação com o registro.
+ARTIFICIAL - Não tem relação com o registro.
+*/
+select * from aluno_curso;
+
+alter table aluno_curso drop column idalunocurso;
+
+/*é uma primary key composta por 3 colunas*/
+alter table aluno_curso 
+add constraint pk_aluno_curso primary key(fk_idcurso, fk_idaluno, data_inscricao_curso);
