@@ -707,3 +707,4 @@ alter table aluno_curso drop column idalunocurso;
 /*é uma primary key composta por 3 colunas*/
 alter table aluno_curso 
 add constraint pk_aluno_curso primary key(fk_idcurso, fk_idaluno, data_inscricao_curso);
+
