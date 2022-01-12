@@ -16,32 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `aluno_curso`
+-- Table structure for table `projeto_funcionario`
 --
 
-DROP TABLE IF EXISTS `aluno_curso`;
+DROP TABLE IF EXISTS `projeto_funcionario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `aluno_curso` (
-  `fk_idaluno` int NOT NULL,
-  `fk_idcurso` int NOT NULL,
-  `data_inscricao_curso` date NOT NULL,
-  `valor_pago_curso` float(10,2) DEFAULT NULL,
-  PRIMARY KEY (`fk_idcurso`,`fk_idaluno`,`data_inscricao_curso`),
-  KEY `fk_aluno_curso` (`fk_idaluno`),
-  CONSTRAINT `fk_aluno_curso` FOREIGN KEY (`fk_idaluno`) REFERENCES `aluno` (`idaluno`),
-  CONSTRAINT `fk_curso_aluno` FOREIGN KEY (`fk_idcurso`) REFERENCES `curso` (`idcurso`)
+CREATE TABLE `projeto_funcionario` (
+  `codigo_projeto` int NOT NULL,
+  `matricula_funcionario` int NOT NULL,
+  `nome_projeto` varchar(100) NOT NULL,
+  `nome_funcionario` varchar(50) NOT NULL,
+  `funcao_funcionario` varchar(50) NOT NULL,
+  `telefone_funcionario` varchar(20) DEFAULT NULL,
+  `data_criacao_projeto` datetime DEFAULT CURRENT_TIMESTAMP,
+  `horas_estimadas` int NOT NULL,
+  `horas_realizadas` int DEFAULT NULL,
+  PRIMARY KEY (`codigo_projeto`,`matricula_funcionario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `aluno_curso`
+-- Dumping data for table `projeto_funcionario`
 --
 
-LOCK TABLES `aluno_curso` WRITE;
-/*!40000 ALTER TABLE `aluno_curso` DISABLE KEYS */;
-INSERT INTO `aluno_curso` VALUES (2,1,'2016-08-10',400.10),(3,2,'2022-01-03',650.20),(1,3,'2016-08-10',400.10),(1,4,'2016-08-10',400.10),(5,4,'2019-01-27',650.20);
-/*!40000 ALTER TABLE `aluno_curso` ENABLE KEYS */;
+LOCK TABLES `projeto_funcionario` WRITE;
+/*!40000 ALTER TABLE `projeto_funcionario` DISABLE KEYS */;
+INSERT INTO `projeto_funcionario` VALUES (1,115,'Matrícula Online','Fátima','Gerente de atendimento',NULL,'2022-01-10 20:13:47',100,NULL),(1,123,'Matrícula Online','Maria Clara ','Analista de projetos',NULL,'2022-01-10 20:12:23',200,NULL),(1,127,'Matrícula Online','Pedro','Desenvolvedor Sênior',NULL,'2022-01-10 20:13:17',500,NULL),(2,143,'Economia de papel','Paula','Gerente de qualidade',NULL,'2022-01-10 20:14:56',300,NULL),(3,210,'Notas Online','Pablo','Analista adminitrativo',NULL,'2022-01-10 20:15:59',180,NULL);
+/*!40000 ALTER TABLE `projeto_funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-11 22:10:16
+-- Dump completed on 2022-01-11 22:10:10
