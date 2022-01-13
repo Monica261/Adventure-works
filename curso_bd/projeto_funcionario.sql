@@ -39,7 +39,8 @@ insert into projeto_funcionario
 values(3, 210, 'Notas Online', 'Pablo', 'Analista adminitrativo', 180);
 
 select * from projeto_funcionario;
-    
+
+/*atualizando dados de um funcionario com conteudo da tabela aluno*/    
 update 
 	projeto_funcionario
 set
@@ -49,3 +50,27 @@ set
 where 
 	matricula_funcionario = 110;
     
+/*REFATORANDO A TABELA PROJETO_FUNCIONARIO*/
+
+/*criando a tabela funcionario*/
+use universidade_u;
+
+create table funcionario(
+idmatricula int auto_increment,
+telefone varchar(20) not null,
+funcao varchar(50) not null,
+nome varchar(50) not null,
+constraint pk_funcionario primary key(idmatricula)
+);
+
+desc funcionario;
+
+/*criando a tabela projeto*/
+create table projeto(
+idcodigo int auto_increment,
+nome varchar(50) not null,
+data_criacao datetime default current_timestamp,
+constraint pk_projeto primary key(idcodigo)
+);
+
+desc projeto;
