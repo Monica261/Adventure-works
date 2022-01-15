@@ -40,6 +40,10 @@ values(3, 210, 'Notas Online', 'Pablo', 'Analista adminitrativo', 180);
 
 select * from projeto_funcionario;
 
+update projeto_funcionario
+set telefone_funcionario = 119906782165
+where matricula_funcionario = 210;
+
 /*atualizando dados de um funcionario com conteudo da tabela aluno*/    
 update 
 	projeto_funcionario
@@ -74,3 +78,87 @@ constraint pk_projeto primary key(idcodigo)
 );
 
 desc projeto;
+
+/*criando a tabela projeto funcionario*/
+create table projeto_funcionario2(
+fk_idcodigo int,
+fk_idmatricula int,
+horas_estimadas int not null,
+horas_realizadas int,
+constraint pk_projeto_funcionario primary key(fk_idcodigo, fk_idmatricula)
+);
+
+desc projeto_funcionario2;
+
+/*referenciando as fk*/
+alter table projeto_funcionario2 add constraint 
+foreign key(fk_idcodigo) references projeto(idcodigo);
+
+alter table projeto_funcionario2 add constraint
+foreign key(fk_idmatricula) references funcionario(idmatricula);
+
+/*populando as tabelas*/
+select 
+	nome_funcionario,
+    funcao_funcionario,
+    matricula_funcionario,
+    telefone_funcionario
+from
+	projeto_funcionario;
+    
+/*query para migração dos dados de funcionarios*/
+insert into funcionario(
+	idmatricula,
+	nome,
+    funcao,
+    telefone
+)
+select distinct
+	matricula_funcionario,
+    nome_funcionario,
+    funcao_funcionario,
+    telefone_funcionario
+from
+	projeto_funcionario;
+    
+select * from funcionario;
+
+/*query para migração dos dados de projetos*/
+update projeto_funcionario
+set data_criacao_projeto = '2022-01-10 20:13:47'
+where codigo_projeto = 1;
+
+insert into projeto(
+	idcodigo, 
+    nome,
+    data_criacao
+)
+select distinct
+	codigo_projeto,
+    nome_projeto,
+    data_criacao_projeto
+from
+	projeto_funcionario;
+
+select * from projeto;
+
+
+/*query para migração dos dados de projeto_funcionario*/
+insert into projeto_funcionario2(
+	fk_idcodigo,
+    fk_idmatricula,
+    horas_estimadas,
+    horas_realizadas
+)
+select
+	codigo_projeto,
+    matricula_funcionario,
+    horas_estimadas,
+    horas_realizadas
+from
+	projeto_funcionario;
+    
+select * from projeto_funcionario2;
+
+/*drop na tabela depois da migração dos registros*/
+drop table projeto_funcionario;
