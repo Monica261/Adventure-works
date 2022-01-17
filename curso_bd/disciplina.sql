@@ -27,6 +27,8 @@ values('curso de angular avançado', 40, 'Claudio Alves', 'claudioalves@gmail.co
 select * from curso;
 
 /*refatorando a tabela disciplina*/
+use universidade_u;
+
 create table professor(
 idprofessor int auto_increment,
 constraint pk_idcurso primary key(idprofessor),
@@ -49,6 +51,8 @@ from
 alter table disciplina drop column nome_professor, drop column email_professor;
 select * from professor;
 select * from disciplina;
+
+desc disciplina;
 
 alter table disciplina rename column codigo_professor to fk_idprofessor;
 

@@ -41,8 +41,8 @@ values(3, 210, 'Notas Online', 'Pablo', 'Analista adminitrativo', 180);
 select * from projeto_funcionario;
 
 update projeto_funcionario
-set telefone_funcionario = 119906782165
-where matricula_funcionario = 210;
+set telefone_funcionario = 11956324589
+where matricula_funcionario = 110;
 
 /*atualizando dados de um funcionario com conteudo da tabela aluno*/    
 update 
@@ -162,3 +162,36 @@ select * from projeto_funcionario2;
 
 /*drop na tabela depois da migração dos registros*/
 drop table projeto_funcionario;
+
+/*relacionamento unario, binario e ternario*/
+use universidade_u;
+
+select * from funcionario;
+
+alter table funcionario add column fk_idmatricula_supervisor int;
+
+alter table funcionario add constraint fk_funcionario_supervisor
+foreign key(fk_idmatricula_supervisor) references funcionario(idmatricula);
+
+desc funcionario;
+
+/*definindo os supervisores de cada área*/
+update funcionario 
+set fk_idmatricula_supervisor = 115
+where idmatricula = 110;
+
+insert into funcionario(nome, funcao)
+values('Miguel', 'Gerente de TI');
+
+insert into funcionario(nome, funcao)
+values('Mônica', 'Desenvolvedora junior');
+
+update funcionario
+set fk_idmatricula_supervisor = 211
+where idmatricula = 212;
+
+/*remover a obrigatoriedade do campo telefone*/
+alter table funcionario modify column telefone varchar(20);
+
+select * from funcionario;
+
