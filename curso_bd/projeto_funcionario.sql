@@ -195,4 +195,32 @@ alter table funcionario modify column telefone varchar(20);
 
 select * from funcionario;
 
-/*apagr registros de uma tabela com truncate*/
+/*apagar registros de uma tabela com truncate
+truncate reseta o auto_increment de uma tabela
+*/
+select * from gasto;
+
+truncate table gasto;
+
+/*truncate na tabela referencia*/
+/*a tabela aluno é referencia para outras tabelas, sendo assim não podendendo ser truncada*/
+truncate table aluno;
+
+/*para que uma tabela consiga ser truncada, precisa setar uma flag*/
+set foreign_key_checks = 0; /*desconsiderar a integridade referencial*/
+truncate table aluno;
+
+select * from aluno;
+
+/*para impedir que novos truncates sejam realizados em outras tabelas referencias
+basta ativar a flag novamente.
+*/
+set foreign_key_checks = 1;
+
+/*exibe qual vai ser o proximo id auto_increment*/
+select max(idtelefone) + 1 from telefone;
+select * from telefone;
+
+alter table telefone auto_increment = 300; /*posso definir que o auto_increment vai começar a partir de tal numero*/
+insert into telefone (numero, fk_idaluno, tipo)
+values ('11 3519-5705', 1, 'res');
