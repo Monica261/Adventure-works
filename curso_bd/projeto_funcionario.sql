@@ -163,7 +163,7 @@ select * from projeto_funcionario2;
 /*drop na tabela depois da migração dos registros*/
 drop table projeto_funcionario;
 
-/*relacionamento unario, binario e ternario*/
+/*relacionamento unario, binario e ternario - estudar*/
 use universidade_u;
 
 select * from funcionario;
@@ -195,3 +195,4 @@ alter table funcionario modify column telefone varchar(20);
 
 select * from funcionario;
 
+/*apagr registros de uma tabela com truncate*/
