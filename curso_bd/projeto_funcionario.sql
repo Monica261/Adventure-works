@@ -224,3 +224,14 @@ select * from telefone;
 alter table telefone auto_increment = 300; /*posso definir que o auto_increment vai começar a partir de tal numero*/
 insert into telefone (numero, fk_idaluno, tipo)
 values ('11 3519-5705', 1, 'res');
+
+/*modificando a ordem de uma coluna*/
+use universidade_u;
+select * from aluno;
+
+show create table aluno;
+
+alter table aluno modify `idaluno` int(11) NOT NULL AUTO_INCREMENT first;/*altera a ordem*/
+
+/*pode utilizar AFTER pra colocar em uma posição especifica*/
+alter table aluno modify `sexo` char(1) DEFAULT NULL after nome;

@@ -59,3 +59,4 @@ alter table disciplina rename column codigo_professor to fk_idprofessor;
 /*aplicando a constraint*/
 alter table disciplina add constraint fk_disciplina_professor
 foreign key (fk_idprofessor) references professor(idprofessor);
+
