@@ -233,6 +233,16 @@ where a.sexo = 'F';
 select * from professor;
 select * from disciplina;
 
-select * from curso as c
+select c.idcurso, c.descricao, d.iddisciplina, d.descricao, d.carga_horaria, p.nome,
+date_format(now(), '%d/%m/%Y') as data_da_selecao
+from curso as c
 left join disciplina as d on c.idcurso = d.fk_idcurso
-left join professor as p on d.fk_idprofessor = p.idprofessor;
+left join professor as p on d.fk_idprofessor = p.idprofessor
+where d.carga_horaria > 6;
+
+/*right join*/
+select * from curso;
+
+select *
+from curso as c
+right join disciplina as d on d.fk_idcurso = c.idcurso;
