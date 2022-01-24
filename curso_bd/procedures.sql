@@ -109,3 +109,5 @@ set @cpf = '618.033.790-06';
 /*descobrir o id do aluno*/
 set @idaluno = (select idaluno from aluno where cpf =  @cpf);
 select @idaluno;
+
+/*VARIAVEIS DE ESCOPO LOCAL*/
