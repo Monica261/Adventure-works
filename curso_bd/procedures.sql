@@ -101,3 +101,11 @@ show procedure status where Db = 'universidade_u';/*verificar se o procedimento 
 call prc_total(@a, @b);
 
 select @a as total_professores, @b as total_alunos;
+
+/*VARIAVEIS DE SEÇÃO*/
+/*declarar uma variavel que contem o CPF de um aluno*/
+set @cpf = '618.033.790-06';
+
+/*descobrir o id do aluno*/
+set @idaluno = (select idaluno from aluno where cpf =  @cpf);
+select @idaluno;
