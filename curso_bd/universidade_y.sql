@@ -234,11 +234,11 @@ select * from professor;
 select * from disciplina;
 
 select c.idcurso, c.descricao, d.iddisciplina, d.descricao, d.carga_horaria, p.nome,
-date_format(now(), '%d/%m/%Y') as data_da_selecao
+date_format(now(), '%d/%m/%Y %h:%i') as data_da_selecao
 from curso as c
 left join disciplina as d on c.idcurso = d.fk_idcurso
 left join professor as p on d.fk_idprofessor = p.idprofessor
-where d.carga_horaria > 6;
+where d.carga_horaria > 10;
 
 /*right join*/
 select * from curso;
@@ -246,3 +246,52 @@ select * from curso;
 select *
 from curso as c
 right join disciplina as d on d.fk_idcurso = c.idcurso;
+
+/*inner join*/
+/*set @sexo = 'F'; - variavel*/
+select *
+from aluno as a
+inner join endereco as e on a.idaluno = e.fk_idaluno
+where a.sexo = 'F';
+
+/*Union e Union All*/
+/*Union
+com base na consulta faz uma distinção de registros - distinct
+*/
+select * from aluno
+where idaluno = 4
+union 
+select * from aluno
+where idaluno = 7;
+
+select 'manga' as w1
+union 
+select 'uva' as w1
+union 
+select 'maracuja' as w1
+union 
+select 'manga' as w1;
+
+/*Union All
+não faz distinção de registros
+*/
+select * from aluno
+where idaluno = 4
+union all
+select * from aluno
+where idaluno = 7;
+
+select 'manga' as w1
+union all
+select 'uva' as w1
+union all
+select 'maracuja' as w1
+union all
+select 'manga' as w1;
+
+/*enviar um e-mail para todos os alunos e professores*/
+use universidade_y;
+select email, 'aluno' from aluno where sexo = 'F'
+union
+select email, 'professor' from professor where idprofessor > 5
+order by email desc;
