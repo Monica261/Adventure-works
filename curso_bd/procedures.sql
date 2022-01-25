@@ -156,3 +156,4 @@ delimiter ;
 
 call prc_professores_total;
 
+/*VARIAVEIS DE ESCOPO DE PARAMETROS*/
