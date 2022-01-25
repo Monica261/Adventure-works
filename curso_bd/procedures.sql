@@ -58,7 +58,21 @@ end
 $$
 delimiter ;
 
-call prc_media_ponderada('Mônica', 10, 6, 2, 8)/*executa a procedure*/
+call prc_media_ponderada('Mônica', 10, 6, 2, 8);/*executa a procedure*/
+
+/*Procedure msg*/
+use universidade_u;
+delimiter $$
+create procedure prc_msg_oi(in nome varchar(100))
+begin
+	select concat('Olá ', nome, ' desenvolvedora') as firstMsg;
+end;
+$$
+delimiter ;
+
+drop procedure prc_msg_oi;
+
+call prc_msg_oi('Mônica')
 
 /*Procedure para verificar se é maior de idade*/
 delimiter $$
@@ -111,3 +125,34 @@ set @idaluno = (select idaluno from aluno where cpf =  @cpf);
 select @idaluno;
 
 /*VARIAVEIS DE ESCOPO LOCAL*/
+delimiter $$
+create procedure proc_variavel_escopo_local()
+begin
+	declare x int default 10;/*declarando var de escopo local*/
+    declare frutas float(8,2);
+    /*select x as variavel_escopo_local;*/
+    
+    /*setar valor de uma var*/
+    set frutas = 20.50;
+    select frutas as variavel_escopo_local;
+end
+$$
+delimiter ;
+
+call proc_variavel_escopo_local();
+
+drop procedure proc_variavel_escopo_local;
+
+/*ATRIBUIR VALORES ADVINDOS DE CONSULTAS*/
+delimiter $$
+create procedure prc_professores_total()
+begin
+	declare total_professores int;
+    set total_professores = (select count(*) from professor); /*atribuindo valor de consulta a uma var */
+    select total_professores as total_prof;
+end
+$$
+delimiter ;
+
+call prc_professores_total;
+
