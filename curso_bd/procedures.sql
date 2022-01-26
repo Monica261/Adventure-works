@@ -156,4 +156,55 @@ delimiter ;
 
 call prc_professores_total;
 
-/*VARIAVEIS DE ESCOPO DE PARAMETROS*/
+/*VARIAVEIS DE ESCOPO DE PARAMETROS
+in - entrada
+out - saida
+inout - entrada e saida
+*/
+use universidade_u;
+
+delimiter $$
+create procedure idade_nome(
+idade float,
+out nome varchar(100)
+)
+begin 
+	select idade, nome;
+    set nome = 'Mônica';
+end
+$$
+delimiter ;
+
+set @nome = 'Ana';
+select @nome;
+
+call idade_nome(22, @nome);
+select @nome;
+
+/*PARAMETROS DE ENTRADA E SAIDA - INOUT*/
+/*escopo de seção - são var que fazem parte do script
+escopo de parametros - são var de parametros
+escopo local - são vars criadas dentro de um bloco BEGIN e END
+*/
+delimiter $$
+create procedure prc_exemplo(
+in param1 int,
+out param2 varchar(50),
+inout param3 float(3,1)
+)
+begin
+	select param1, param2, param3;
+    set param2 = 'Parametro 2';
+end
+$$
+delimiter ;
+
+set @p1 = 20;
+set @p2 = 'Olá Mundo';
+set @p3 = round(22.06);
+
+drop procedure  prc_exemplo;
+
+call prc_exemplo(@p1, @p2, @p3);
+
+select @p1, @p2, @p3;
