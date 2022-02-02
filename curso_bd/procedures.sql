@@ -208,3 +208,19 @@ drop procedure  prc_exemplo;
 call prc_exemplo(@p1, @p2, @p3);
 
 select @p1, @p2, @p3;
+
+/*PROCEDURE WHILE INSERT*/
+delimiter $$
+create procedure prc_insertwhile()
+begin
+	declare idtelefone int default 1;
+    while(idtelefone <= 15) do
+		insert into telefone(numero, tipo, fk_idaluno) values('12982805148', 'res', 3);
+		set idtelefone = idtelefone + 1;
+	end while;
+end;
+$$
+delimiter ;
+
+call prc_insertwhile();
+
