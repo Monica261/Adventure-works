@@ -76,3 +76,19 @@ delimiter ;
 drop procedure prc_data_atual;
 
 call prc_data_atual();
+
+/*CASE EM COLUNAS DE CONSULTA*/
+select 
+	a.sexo,
+    a.telefone,
+    a.valor_pago_curso,
+    case
+		when a.valor_pago_curso >= 400.10 then 'averiguar mensalidade'
+        when a.valor_pago_curso < 400.10 then 'valor correto'
+	end as mensalidade_custo,
+    a.nome, 
+    e.logradouro
+from aluno as a
+left join endereco as e on e.fk_idaluno = a.idaluno
+order by curdate() asc;
+
