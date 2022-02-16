@@ -234,4 +234,6 @@ show create table aluno;
 alter table aluno modify `idaluno` int(11) NOT NULL AUTO_INCREMENT first;/*altera a ordem*/
 
 /*pode utilizar AFTER pra colocar em uma posição especifica*/
+select * from aluno;
+
 alter table aluno modify `sexo` char(1) DEFAULT NULL after nome;

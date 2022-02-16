@@ -1,6 +1,6 @@
 use universidade_u;
 
-
+/*criação da tabela contrato e boleto*/
 create table contrato(
 	idcontrato int not null auto_increment,
     fk_idaluno int not null,
@@ -48,3 +48,21 @@ insert into contrato(fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_tota
 insert into contrato(fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_total_curso, numero_parcelas)values(2, 3, '2019-01-12 17:30:00', 1300.00, 12);
 insert into contrato(fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_total_curso, numero_parcelas)values(3, 1, '2019-01-09 09:45:00', 900.00, 10);
 insert into contrato(fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_total_curso, numero_parcelas)values(4, 4, '2019-02-01 13:20:00', 2000.00, 10);
+
+/*procedure para processamento de contrato*/
+delimiter $$
+create procedure proc_boleto()
+begin
+	
+    declare c_contrato cursor for(
+		select * from contrato
+    );
+    
+    -- abrir o cursor
+    open c_contratos;
+     
+    -- fechar o cursor
+    close c_contratos;
+end;
+$$
+delimiter ;
