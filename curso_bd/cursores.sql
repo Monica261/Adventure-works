@@ -52,10 +52,17 @@ insert into contrato(fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_tota
 /*procedure para processamento de contrato*/
 delimiter $$
 create procedure proc_boleto()
+comment 'procedure para processamento de contrato e boleto'
 begin
-	
-    declare c_contrato cursor for(
-		select * from contrato
+	declare v_fk_idcontrato, v_fk_idaluno, v_fk_idcurso int;
+    declare v_fk_data_inscricao_curso datetime;
+    declare v_valor_total_curso float(8,2);
+    declare v_desconto float(4,1);
+    declare v_numero_parcelas int;
+    
+    declare c_contrato cursor for(-- var do tipo cursor
+		select idcontrato, fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_total_curso, desconto, numero_parcelas, processado
+        from contrato
     );
     
     -- abrir o cursor
