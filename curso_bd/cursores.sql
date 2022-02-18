@@ -59,8 +59,9 @@ begin
     declare v_valor_total_curso float(8,2);
     declare v_desconto float(4,1);
     declare v_numero_parcelas int;
+    declare v_processado char(1);
     
-    declare c_contrato cursor for(-- var do tipo cursor
+    declare c_contratos cursor for(-- var do tipo cursor
 		select idcontrato, fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_total_curso, desconto, numero_parcelas, processado
         from contrato
     );
@@ -68,8 +69,24 @@ begin
     -- abrir o cursor
     open c_contratos;
      
+     fetch c_contratos into v_fk_idcontrato, v_fk_idaluno, v_fk_idcurso, v_fk_data_inscricao_curso, v_valor_total_curso, v_desconto, v_numero_parcelas,
+     v_processado;
+     
+     select v_fk_idcontrato, v_fk_idaluno, v_fk_idcurso, v_fk_data_inscricao_curso,
+     concat('$', format(v_valor_total_curso, 2)) as "v_valor_total_curso",
+     v_desconto, v_numero_parcelas,
+     case 
+		when v_processado = 'n' then 'NAO'
+     end as "v_processado";
+     
     -- fechar o cursor
     close c_contratos;
 end;
 $$
 delimiter ;
+
+call proc_boleto();
+
+drop procedure proc_boleto;
+
+select * from contrato;
