@@ -89,4 +89,4 @@ call proc_boleto();
 
 drop procedure proc_boleto;
 
-select * from contrato;
+select * from contrato; 

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
--- Host: localhost    Database: universidade_y
+-- Host: localhost    Database: universidade_u
 -- ------------------------------------------------------
 -- Server version	8.0.27
 
@@ -16,39 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `gasto`
+-- Table structure for table `contrato`
 --
 
-DROP TABLE IF EXISTS `gasto`;
+DROP TABLE IF EXISTS `contrato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `gasto` (
-  `idgasto` int NOT NULL AUTO_INCREMENT,
-  `ano` int NOT NULL,
-  `tipo` enum('previsto','realizado') NOT NULL,
-  `jan` float(10,2) DEFAULT NULL,
-  `fev` float(10,2) DEFAULT NULL,
-  `mar` float(10,2) DEFAULT NULL,
-  `abr` float(10,2) DEFAULT NULL,
-  `mai` float(10,2) DEFAULT NULL,
-  `jun` float(10,2) DEFAULT NULL,
-  `jul` float(10,2) DEFAULT NULL,
-  `ago` float(10,2) DEFAULT NULL,
-  `set` float(10,2) DEFAULT NULL,
-  `out` float(10,2) DEFAULT NULL,
-  `nov` float(10,2) DEFAULT NULL,
-  `dez` float(10,2) DEFAULT NULL,
-  PRIMARY KEY (`idgasto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `contrato` (
+  `idcontrato` int NOT NULL AUTO_INCREMENT,
+  `fk_idaluno` int NOT NULL,
+  `fk_idcurso` int NOT NULL,
+  `fk_data_inscricao_curso` datetime NOT NULL,
+  `valor_total_curso` float(8,2) NOT NULL,
+  `desconto` float(4,1) NOT NULL DEFAULT '0.0',
+  `numero_parcelas` int NOT NULL,
+  `processado` enum('n','s') DEFAULT 'n',
+  PRIMARY KEY (`idcontrato`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `gasto`
+-- Dumping data for table `contrato`
 --
 
-LOCK TABLES `gasto` WRITE;
-/*!40000 ALTER TABLE `gasto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gasto` ENABLE KEYS */;
+LOCK TABLES `contrato` WRITE;
+/*!40000 ALTER TABLE `contrato` DISABLE KEYS */;
+INSERT INTO `contrato` VALUES (1,1,2,'2019-01-07 12:00:00',1500.00,0.0,12,'n'),(2,2,3,'2019-01-12 17:30:00',1300.00,0.0,12,'n'),(3,3,1,'2019-01-09 09:45:00',900.00,0.0,10,'n'),(4,4,4,'2019-02-01 13:20:00',2000.00,0.0,10,'n');
+/*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -60,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-18 16:18:35
+-- Dump completed on 2022-02-18 16:17:31

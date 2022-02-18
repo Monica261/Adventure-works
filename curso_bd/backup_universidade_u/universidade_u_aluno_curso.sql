@@ -26,7 +26,6 @@ CREATE TABLE `aluno_curso` (
   `fk_idaluno` int NOT NULL,
   `fk_idcurso` int NOT NULL,
   `data_inscricao_curso` date NOT NULL,
-  `valor_pago_curso` float(10,2) DEFAULT NULL,
   PRIMARY KEY (`fk_idcurso`,`fk_idaluno`,`data_inscricao_curso`),
   KEY `fk_aluno_curso` (`fk_idaluno`),
   CONSTRAINT `fk_aluno_curso` FOREIGN KEY (`fk_idaluno`) REFERENCES `aluno` (`idaluno`),
@@ -40,7 +39,7 @@ CREATE TABLE `aluno_curso` (
 
 LOCK TABLES `aluno_curso` WRITE;
 /*!40000 ALTER TABLE `aluno_curso` DISABLE KEYS */;
-INSERT INTO `aluno_curso` VALUES (2,1,'2016-08-10',400.10),(3,2,'2022-01-03',650.20),(1,3,'2016-08-10',400.10),(1,4,'2016-08-10',400.10),(5,4,'2019-01-27',650.20);
+INSERT INTO `aluno_curso` VALUES (1,2,'2019-01-07'),(1,3,'2016-08-10'),(1,4,'2016-08-10'),(2,1,'2016-08-10'),(2,3,'2019-01-12'),(3,1,'2019-01-09'),(3,2,'2022-01-03'),(4,4,'2019-02-01'),(5,4,'2019-01-27');
 /*!40000 ALTER TABLE `aluno_curso` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-14 16:09:14
+-- Dump completed on 2022-02-18 16:17:26

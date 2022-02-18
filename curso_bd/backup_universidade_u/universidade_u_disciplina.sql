@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
--- Host: localhost    Database: universidade_y
+-- Host: localhost    Database: universidade_u
 -- ------------------------------------------------------
 -- Server version	8.0.27
 
@@ -16,39 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `gasto`
+-- Table structure for table `disciplina`
 --
 
-DROP TABLE IF EXISTS `gasto`;
+DROP TABLE IF EXISTS `disciplina`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `gasto` (
-  `idgasto` int NOT NULL AUTO_INCREMENT,
-  `ano` int NOT NULL,
-  `tipo` enum('previsto','realizado') NOT NULL,
-  `jan` float(10,2) DEFAULT NULL,
-  `fev` float(10,2) DEFAULT NULL,
-  `mar` float(10,2) DEFAULT NULL,
-  `abr` float(10,2) DEFAULT NULL,
-  `mai` float(10,2) DEFAULT NULL,
-  `jun` float(10,2) DEFAULT NULL,
-  `jul` float(10,2) DEFAULT NULL,
-  `ago` float(10,2) DEFAULT NULL,
-  `set` float(10,2) DEFAULT NULL,
-  `out` float(10,2) DEFAULT NULL,
-  `nov` float(10,2) DEFAULT NULL,
-  `dez` float(10,2) DEFAULT NULL,
-  PRIMARY KEY (`idgasto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `disciplina` (
+  `iddisciplina` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(200) NOT NULL,
+  `carga_horaria` int DEFAULT NULL,
+  `fk_idprofessor` int DEFAULT NULL,
+  `fk_idcurso` int DEFAULT NULL,
+  PRIMARY KEY (`iddisciplina`),
+  KEY `fk_curso_disciplina` (`fk_idcurso`),
+  KEY `fk_disciplina_professor` (`fk_idprofessor`),
+  CONSTRAINT `fk_curso_disciplina` FOREIGN KEY (`fk_idcurso`) REFERENCES `curso` (`idcurso`),
+  CONSTRAINT `fk_disciplina_professor` FOREIGN KEY (`fk_idprofessor`) REFERENCES `professor` (`idprofessor`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `gasto`
+-- Dumping data for table `disciplina`
 --
 
-LOCK TABLES `gasto` WRITE;
-/*!40000 ALTER TABLE `gasto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gasto` ENABLE KEYS */;
+LOCK TABLES `disciplina` WRITE;
+/*!40000 ALTER TABLE `disciplina` DISABLE KEYS */;
+INSERT INTO `disciplina` VALUES (1,'curso de Mongo e Node',30,100,2),(2,'curso js 2018',50,110,1),(3,'curso de angular avançado',40,140,3);
+/*!40000 ALTER TABLE `disciplina` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -60,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-18 16:18:35
+-- Dump completed on 2022-02-18 16:17:24

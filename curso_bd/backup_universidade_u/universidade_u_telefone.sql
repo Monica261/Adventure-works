@@ -30,7 +30,7 @@ CREATE TABLE `telefone` (
   PRIMARY KEY (`idtelefone`),
   KEY `fk_aluno_telefone` (`fk_idaluno`),
   CONSTRAINT `fk_aluno_telefone` FOREIGN KEY (`fk_idaluno`) REFERENCES `aluno` (`idaluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `telefone` (
 
 LOCK TABLES `telefone` WRITE;
 /*!40000 ALTER TABLE `telefone` DISABLE KEYS */;
-INSERT INTO `telefone` VALUES (1,'12 98280-5148','res',2),(2,'12 98056-9587','pes',4),(3,'11 98256-4287','res',1);
+INSERT INTO `telefone` VALUES (1,'12 98280-5148','res',2),(2,'12 98056-9587','pes',4),(3,'11 98256-4287','res',1),(4,'12982805148','res',3),(5,'12982805148','res',3),(6,'12982805148','res',3),(7,'12982805148','res',3),(8,'12982805148','res',3),(9,'12982805148','res',3),(10,'12982805148','res',3),(11,'12982805148','res',3),(12,'12982805148','res',3),(13,'12982805148','res',3),(14,'12982805148','res',3),(15,'12982805148','res',3),(16,'12982805148','res',3),(17,'12982805148','res',3),(18,'12982805148','res',3);
 /*!40000 ALTER TABLE `telefone` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-14 16:09:14
+-- Dump completed on 2022-02-18 16:17:24

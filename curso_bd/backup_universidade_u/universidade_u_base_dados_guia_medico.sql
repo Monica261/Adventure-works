@@ -1,0 +1,75 @@
+-- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
+--
+-- Host: localhost    Database: universidade_u
+-- ------------------------------------------------------
+-- Server version	8.0.27
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `base_dados_guia_medico`
+--
+
+DROP TABLE IF EXISTS `base_dados_guia_medico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `base_dados_guia_medico` (
+  `SITUACAO` varchar(50) NOT NULL,
+  `COD_PRESTADOR` varchar(50) NOT NULL,
+  `NM_PRESTADOR` varchar(255) NOT NULL,
+  `NM_FANTASIA` varchar(255) NOT NULL,
+  `CEP` decimal(8,0) NOT NULL,
+  `ESPECIALIDADE` varchar(255) NOT NULL,
+  `TIP_PRESTADOR` varchar(60) NOT NULL,
+  `CODIGO_OPERADORA` float NOT NULL,
+  `HOSPITAL_CLINICO_MEDICO` float NOT NULL,
+  `EMAIL` varchar(100) NOT NULL,
+  `TIPO_DE_CONTATO` varchar(150) NOT NULL,
+  `OUTROS_CELULAR` varchar(255) NOT NULL,
+  `TIPO_PESSOA` varchar(255) NOT NULL,
+  `CNPJ_CPF` float NOT NULL,
+  `CD_PRESTADOR_ENDERECO` float DEFAULT NULL,
+  `CD_TIPO_ENDERECO` float DEFAULT NULL,
+  `DS_TIPO_ENDERECO` varchar(100) DEFAULT NULL,
+  `TP_LOGADOURO` varchar(20) DEFAULT NULL,
+  `DS_ENDERECO` varchar(255) DEFAULT NULL,
+  `NR_ENDERECO` varchar(255) DEFAULT NULL,
+  `DS_COMPLEMENTO` varchar(255) DEFAULT NULL,
+  `DS_BAIRRO` varchar(100) DEFAULT NULL,
+  `CD_MUNICIPIO` float DEFAULT NULL,
+  `DS_MUNICIPIO` varchar(255) NOT NULL,
+  `CD_UF` varchar(2) NOT NULL,
+  `SN_PRINCIPAL` enum('S','N') DEFAULT NULL,
+  `SN_DIVULGA` enum('S','N') DEFAULT NULL,
+  `DT_INATIVACAO` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `base_dados_guia_medico`
+--
+
+LOCK TABLES `base_dados_guia_medico` WRITE;
+/*!40000 ALTER TABLE `base_dados_guia_medico` DISABLE KEYS */;
+/*!40000 ALTER TABLE `base_dados_guia_medico` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-02-18 16:17:29
