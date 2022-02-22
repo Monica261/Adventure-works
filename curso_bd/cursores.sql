@@ -69,7 +69,7 @@ begin
     
     
     declare c_contratos cursor for(-- var do tipo cursor
-		select idcontrato, fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_total_curso, desconto, numero_parcelas, processado
+		select v_idcontrato, fk_idaluno, fk_idcurso, fk_data_inscricao_curso, valor_total_curso, desconto, numero_parcelas, processado
         from contrato
     );
     
