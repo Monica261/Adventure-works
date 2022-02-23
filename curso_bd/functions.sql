@@ -1,13 +1,16 @@
 -- Funções são rotinas que retornam valores ou tabelas
 use universidade_u;
 -- modelo
+delimiter $$
 create function func_modelo()
-returns <tipo_de_dados_que_sera_retornado>
+returns int -- tipo_de_dados_que_sera_retornado;
 begin
 	
     /*bloco de codigo da funcao*/
-    return <retorno>
+    return -- retorno da função
 end;
+$$ 
+delimiter ;
 
 -- função para formatar data
 delimiter $$
@@ -48,3 +51,20 @@ delimiter ;
 select concat('A idade é: ', fnc_idade(data_nascimento), ' anos') as idade_aluno from aluno;
 
 /*Função não deterministica*/
+delimiter $$
+create function fnc_addvalor(valor longtext)
+returns longtext
+comment 'função não deterministica'
+begin
+	return concat('$ ', format(valor, 2));
+end;
+$$
+delimiter ;
+
+select fnc_addvalor('526340') as valor_formatado;
+
+drop function fnc_addvalor;
+
+-- desabilitar a opção deterministica
+SET GLOBAL log_bin_trust_function_creators = 0;
+
