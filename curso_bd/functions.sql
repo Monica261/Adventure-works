@@ -63,8 +63,13 @@ delimiter ;
 
 select fnc_addvalor('526340') as valor_formatado;
 
+select fnc_addvalor(valor_total_curso)
+from contrato
+where idcontrato = 3;
+
 drop function fnc_addvalor;
 
--- desabilitar a opção deterministica
-SET GLOBAL log_bin_trust_function_creators = 0;
+-- desabilitar a opção deterministica - possibilitando a criação de funções não deterministicas 
+SET GLOBAL log_bin_trust_function_creators = 1;
+
 
