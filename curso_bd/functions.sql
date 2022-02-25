@@ -1,5 +1,6 @@
 -- Funções são rotinas que retornam valores ou tabelas
 use universidade_u;
+
 -- modelo
 delimiter $$
 create function func_modelo()
@@ -65,7 +66,7 @@ select fnc_addvalor('526340') as valor_formatado;
 
 select fnc_addvalor(valor_total_curso)
 from contrato
-where idcontrato = 3;
+where idcontrato = 4;
 
 drop function fnc_addvalor;
 
