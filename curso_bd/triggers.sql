@@ -63,12 +63,25 @@ create trigger trg_funcionario_after_insert
 after insert on funcionario
 for each row
 begin
-	select 'DADOS INSERIDOS';
+	insert into funcionario_log(fk_idmatricula, tipo_log, funcao_antiga, funcao_nova, telefone_antigo, telefone_novo)
+    values(NEW.idmatricula, 'BI', null, NEW.funcao, null, NEW.telefone);
 end
 $$
 delimiter ;
 
-INSERT INTO universidade_u.funcionario(telefone, funcao, nome) VALUES ('98256-7432', 'Dev Sênior', 'Maria');
+INSERT INTO universidade_u.funcionario(telefone, funcao, nome) VALUES ('99457-7432', 'analista contabil', 'Caio');
 
 select * from funcionario;
 select * from funcionario_log;
+
+/*Trigger - before delete*/
+
+delimiter $$
+create trigger trg_funcionario_before_delete
+before delete on funcionario
+begin
+	insert into funcionario_log(fk_idmatricula, tipo_log, funcao_antiga, funcao_nova, telefone_antigo, telefone_novo)
+    values(OLD.idmatricula, 'BD', null, OLD.funcao, OLD.telefone, null );
+end
+$$
+delimiter ;
