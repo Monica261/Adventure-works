@@ -26,6 +26,8 @@ create table funcionario_log (
     telefone_novo varchar(20)
 );
 
+alter table funcionario_log modify column tipo_log varchar(20);
+
 -- criando trigger before insert
 delimiter $$
 create trigger trg_funcionario_before_insert
@@ -79,9 +81,20 @@ select * from funcionario_log;
 delimiter $$
 create trigger trg_funcionario_before_delete
 before delete on funcionario
+for each row
 begin
 	insert into funcionario_log(fk_idmatricula, tipo_log, funcao_antiga, funcao_nova, telefone_antigo, telefone_novo)
-    values(OLD.idmatricula, 'BD', null, OLD.funcao, OLD.telefone, null );
-end
+    values(null, 'Before Delete', OLD.funcao, null, OLD.telefone, null );
+end 
 $$
 delimiter ;
+
+delete from universidade_u.funcionario
+where idmatricula = 4;
+
+drop trigger trg_funcionario_before_delete;
+
+set foreign_key_checks = 0; -- desabilita as foreigns key
+
+select * from funcionario;
+select * from funcionario_log;
