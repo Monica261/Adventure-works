@@ -1,4 +1,4 @@
-/*Trigger - Before Insert*/
+  /*Trigger - Before Insert*/
 use universidade_u;
 
 -- modelo de sintaxe
@@ -95,6 +95,36 @@ where idmatricula = 4;
 drop trigger trg_funcionario_before_delete;
 
 set foreign_key_checks = 0; -- desabilita as foreigns key
+
+select * from funcionario;
+select * from funcionario_log;
+
+
+/*Trigger - after update - dispara apos operações de atualização*/
+use universidade_u;
+
+alter table funcionario add column salario float(9,2) not null;
+
+alter table funcionario_log add column salario_novo float(9,2);
+
+select * from funcionario_log;
+
+delimiter $
+create trigger trg_after_update_funcionario
+after update on funcionario
+for each row
+begin
+	insert into funcionario_log(fk_idmatricula, tipo_log, funcao_antiga, funcao_nova, telefone_antigo, telefone_novo, salario_antigo, salario_novo)
+    values(OLD.idmatricula, 'After Update', OLD.funcao, NEW.funcao, OLD.telefone, NEW.telefone, OLD.salario, NEW.salario );	
+end
+$
+delimiter ;
+
+show triggers;
+
+update funcionario
+set salario = 3000.00
+where idmatricula = 1;
 
 select * from funcionario;
 select * from funcionario_log;
