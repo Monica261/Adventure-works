@@ -1,4 +1,5 @@
 /*Views - tabelas dinamicas vistuais criadas a partir de uma consulta sql*/
+use universidade_u;
 
 /*View - professor, curso e disciplina*/
 create view vw_rel_disc_curso_professor as
@@ -38,3 +39,22 @@ inner join disciplina as d on c.idcurso = c.idcurso
 inner join professor as p on p.idprofessor = d.fk_idprofessor;
 
 drop view vw_rel_disc_curso_professor; -- apagar uma view
+
+/*View - aluno curso, curso e contrato*/
+create view vw_aluno_curso_contrato as
+select 
+	a.nome,
+    ac.fk_idaluno,
+    co.idcontrato,
+    co.valor_total_curso,
+    co.numero_parcelas,
+    c.idcurso,
+    c.descricao
+from aluno as a
+left join aluno_curso as ac on ac.fk_idaluno = a.idaluno
+left join curso as c on c.idcurso = ac.fk_idcurso
+left join contrato as co on co.fk_idaluno = ac.fk_idaluno;
+
+select * from vw_aluno_curso_contrato;
+
+show create view universidade_u.vw_aluno_curso_contrato;
