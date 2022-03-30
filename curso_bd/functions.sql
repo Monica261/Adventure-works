@@ -62,7 +62,7 @@ end;
 $$
 delimiter ;
 
-select fnc_addvalor('526340') as valor_formatado;
+select fnc_addvalor('18440') as valor_formatado;
 
 select fnc_addvalor(valor_total_curso)
 from contrato
