@@ -35,3 +35,11 @@ select * from global_variables;
 select * from hosts;
 
 show tables;
+
+/*BD PADRÃO - INFORMATION SCHEMA
+Tabelas que armazenam infos sobre os dados(metadados):
+- nomes de bancos e tabelas
+- tipos de dados das colunas das tabelas
+- triggers e views
+*/
+
