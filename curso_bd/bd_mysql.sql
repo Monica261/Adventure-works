@@ -43,3 +43,36 @@ Tabelas que armazenam infos sobre os dados(metadados):
 - triggers e views
 */
 
+use information_schema;
+
+show tables;
+
+-- mostra as conexões abertas
+select * from processlist;
+
+-- detalhes sobre as tabelas
+select 
+	table_name as nome,
+    table_rows as n_de_linhas,
+    table_comment as comentario,
+    (data_length + index_length) as total_bytes,
+    (((data_length + index_length)/1024)/1024) as total_mega_bytes
+from tables
+where table_schema = 'universidade_u'
+and table_type = 'BASE TABLE'
+order by total_bytes desc;
+
+-- verificar triggers e views
+select * from triggers;
+
+select * from views;
+
+/*BD SYS
+armazena views
+*/
+
+use sys;s
+
+show tables;
+
+select * from host_summary_by_statement_latency;
