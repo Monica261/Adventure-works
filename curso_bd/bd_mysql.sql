@@ -60,7 +60,7 @@ select
 from tables
 where table_schema = 'universidade_u'
 and table_type = 'BASE TABLE'
-order by total_bytes desc;
+order by n_de_linhas desc;
 
 -- verificar triggers e views
 select * from triggers;
@@ -68,10 +68,10 @@ select * from triggers;
 select * from views;
 
 /*BD SYS
-armazena views
+armazena views que permite analisar resumidamente
 */
 
-use sys;s
+use sys;
 
 show tables;
 
