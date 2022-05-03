@@ -18,3 +18,22 @@ call prc_var('hostname');
 
 use universidade_u;
 show create procedure universidade_u.prc_var;
+
+/*LOGS GERAIS*/
+use universidade_u;
+
+call prc_var('general_log_file'); -- mostra o arquivo que armazena log: DESKTOP-ALHV5A6.log
+
+call prc_var('datadir'); -- caminho onde fica o arquivo que armazena o log
+
+set @@global.general_log = 'ON';-- para esse arquivo existir, é preciso habilitar o mesmo
+
+select * from aluno a -- executando query para ver se a mesma aparece no arquivo de log que habilitamos
+where a.sexo = 'F';
+
+set @@global.general_log = 'OFF'; -- desabilita para que o mesmo não fique muito grande devida a grande quant de logs
+
+
+/*LOGS DE CONSULTAS LENTAS*/
+
+call prc_var('slow_query_log_file'); -- consulta qual arquivo registra os logs slow
