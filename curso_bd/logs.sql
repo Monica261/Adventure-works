@@ -37,3 +37,19 @@ set @@global.general_log = 'OFF'; -- desabilita para que o mesmo não fique muit
 /*LOGS DE CONSULTAS LENTAS*/
 
 call prc_var('slow_query_log_file'); -- consulta qual arquivo registra os logs slow
+
+show global variables where variable_name = 'slow_query_log_file'; /* .\WINDOWNS-PC.log */
+/* global read only */
+
+show global variables where variable_name = 'datadir'; /* C:\mysql_dados\Data\ */
+/* global read only */
+
+show global variables where variable_name = 'slow_query_log'; /* ON -> ativo | OFF -> inativo */
+/* global dinâmica */
+
+show global variables where variable_name = 'long_query_time'; /* segundos */
+/* global dinâmica */
+
+set global long_query_time = 4;
+
+select sleep(5), 'Query muito lenta!!!';
