@@ -53,3 +53,19 @@ show global variables where variable_name = 'long_query_time'; /* segundos */
 set global long_query_time = 4;
 
 select sleep(5), 'Query muito lenta!!!';
+
+/*LOGS BINARIOS -> são registrados a cada alteração no banco*/
+use universidade_u;
+
+call prc_var('log_bin_basename'); -- exibe a base da criação para os logs binarios, arquivos que possuem nr sequencial
+
+call prc_var('log_bin'); -- verifica se o armazenamento esta ON ou OFF
+
+-- criterios para que esses arquivos sejam criados:
+-- banco de dados é iniciado
+call prc_var('max_binlog_size');-- bytes 
+select ((1073741824/1024) / 1024) / 1024; -- descobrir o gb do arquivo de log
+
+-- saber por quantos dias os arquivos de logs serão preservados
+call prc_var('binlog_expire_logs_seconds');
+select ((2592000 / 60) / 60) / 24 as dias_expirar; 
