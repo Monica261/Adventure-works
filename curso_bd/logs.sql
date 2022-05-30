@@ -67,5 +67,6 @@ call prc_var('max_binlog_size');-- bytes
 select ((1073741824/1024) / 1024) / 1024; -- descobrir o gb do arquivo de log
 
 -- saber por quantos dias os arquivos de logs serão preservados
+
 call prc_var('binlog_expire_logs_seconds');
 select ((2592000 / 60) / 60) / 24 as dias_expirar; 
