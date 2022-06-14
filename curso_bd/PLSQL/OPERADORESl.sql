@@ -22,4 +22,30 @@ select * from HR.employees emp
 where emp.hire_date > to_date('03/01/06', 'DD/MM/YYYY')
 and emp.job_id = 'FI_ACCOUNT';
 
+select * from HR.employees emp
+where emp.salary > 9000
+order by emp.salary asc;
+
+--operador menor
+select emp.first_name, emp.salary, sysdate from HR.employees emp
+where emp.salary < 5000;
+
+--operador maior igual
+select * from hr.employees emp
+where emp.salary >= 9000;
+
+--operador menor igual
+select * from hr.employees emp
+where emp.hire_date <= to_date('16/08/2002', 'DD/MM/YYYY')
+order by first_name asc;
+
+--operador diferente
+select * from hr.employees emp
+where emp.job_id <> 'IT_PROG';
+
+--combinações dos operadores
+select * from hr.employees emp
+where emp.job_id <> 'IT_PROG'
+and emp.hire_date >= to_date('26/11/2005', 'DD/MM/YYYY')
+and emp.salary < 6000;
 
