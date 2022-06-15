@@ -18,3 +18,11 @@ create tablespace curso
     grant create session, connect, resource to aluno;
     
     alter user aluno quota unlimited on curso;
+    
+    --deletar user
+    drop user aluno;
+    
+    --deletar tablespace
+    drop tablespace curso
+    including contents and datafiles
+    cascade constraints;
