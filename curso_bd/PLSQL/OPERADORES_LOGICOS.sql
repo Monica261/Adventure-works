@@ -53,14 +53,52 @@ select * from HR.countries;
  group by emp.first_name --quant de nomes por departamento                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
  
  --not like
-  select * from HR.employees emp
-  where emp.first_name not like '%a%'
-  and emp.job_id = 'IT_PROG'
+select * from HR.employees emp
+where emp.first_name not like '%a%'
+and emp.job_id = 'IT_PROG'
   
-  --or
-  select * from HR.employees emp
-  where emp.first_name not like '%a%'
-  and (emp.job_id = 'IT_PROG' or emp.job_id = 'FI_ACCOUNT')
+--or
+select * from HR.employees emp
+where emp.first_name not like '%a%'
+and (emp.job_id = 'IT_PROG' or emp.job_id = 'FI_ACCOUNT')
   
-  
+--like
+select * from senso se
+where se.nome_mun like 'Am%'
+
+select * from senso se
+where se.nome_mun like '%ta'
+
+select * from senso se
+where se.nome_mun like '%ma%'
  
+--not like
+select * from senso
+where nome_mun not like ('%at%')
+and not populacao < 40000
+and not ano > 2011
+
+--is not null
+select * from senso
+where regiao is not null --traz apenas os que nao forem nulos na regiao
+
+--is null
+select * from senso
+where regiao is null --traz apenas os que forem nulos na regiao
+
+--operador having
+select se.cod_uf, se.estado, count(*) as quant
+from senso se
+where se.ano = '2014'
+group by se.cod_uf, se.estado having count(cod_mun) > 500; --municipios que tem mais de 500 cidades
+
+select cod_uf, estado, count(*) as quant_populacao
+from senso
+where ano > 2010
+group by cod_uf, estado having count(populacao) < 60000 --populacao menor que 60.000 por estado
+order by 3 desc; --terceiro campo do select em order desc
+
+--trazer a quantidade de municipios pelo o estado e somar a população:
+select cod_uf, estado, count(cod_mun) as qnt_municipio, sum(populacao) as quant_populacao
+from senso
+group by cod_uf, estado having sum(populacao) > 700000
