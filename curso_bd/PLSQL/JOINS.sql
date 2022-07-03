@@ -67,3 +67,50 @@ insert into matricula values(3, 4, 'noturno');
 insert into matricula values(5, 1, 'noturno');
 insert into matricula values(5, 2, 'vespertino');
 insert into matricula values(5, 4, 'matutino');
+
+select * from matricula;
+
+--aluno 4 n tem disciplina e disciplina 5 n tem alunos -> aviso
+
+--inner join
+select a.nome, c.nome_disc, b.periodo
+from alunos a
+inner join matricula b on a.idaluno = b.idaluno
+inner join disciplina c on b.iddisc = c.iddisc ;
+
+--left join
+select a.nome, c.nome_disc, b.periodo
+from alunos a
+left join matricula b on a.idaluno = b.idaluno
+left join disciplina c on b.iddisc = c.iddisc ;
+
+--right join
+select a.nome, c.nome_disc, b.periodo
+from alunos a
+right join matricula b on a.idaluno = b.idaluno
+right join disciplina c on b.iddisc = c.iddisc ;
+
+--full join
+select a.nome, c.nome_disc, b.periodo
+from alunos a
+full join matricula b on a.idaluno = b.idaluno
+full join disciplina c on b.iddisc = c.iddisc ;
+
+/*utilizando a base de employees*/
+select a.employee_id, a.first_name, b.department_id, c.job_title
+from HR.employees a
+inner join HR.departments b on a.department_id = b.department_id
+inner join HR.jobs c on a.job_id = c.job_id
+order by 1;
+
+select a.employee_id, a.first_name, b.department_id, c.job_title
+from HR.employees a
+left join HR.departments b on a.department_id = b.department_id --verificar funcio sem depart
+left join HR.jobs c on a.job_id = c.job_id
+order by 1;
+
+select a.employee_id, a.first_name, b.department_id, c.job_title
+from HR.employees a
+right join HR.departments b on a.department_id = b.department_id --depar ou job sem funcio
+right join HR.jobs c on a.job_id = c.job_id
+order by 1;
