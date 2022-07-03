@@ -50,5 +50,4 @@ d.department_name,
 (select count(*) from HR.employees emp where d.department_id = emp.department_id)as qnt_funcionarios,
 (select sum(emp.salary) from HR.employees emp where d.department_id = emp.department_id) /
 (select count(*) from HR.employees emp where d.department_id = emp.department_id) as media
-from HR.departments d
-where d.department_id is not null;
+from HR.departments d;
