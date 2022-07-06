@@ -1,0 +1,6 @@
+--FUNÇÃO DE CLASSIFICACAO
+--A diferença entre RANK e DENSE_RANK é que o segundo não salta valores após classificação repetidas.
+
+--utilizando ROW_NUMBER
+select ROW_NUMBER() OVER (ORDER BY SALARY DESC) Sequencia
+from hr.employees;
