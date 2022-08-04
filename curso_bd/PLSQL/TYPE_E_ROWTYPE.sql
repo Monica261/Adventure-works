@@ -20,3 +20,32 @@ begin
     dbms_output.put_line('nome: ' || to_char(v_name));
     dbms_output.put_line('salario: ' || to_char(v_sal));
 end;
+
+--usando rowtype
+declare
+    v_emp hr.employees%ROWTYPE;
+begin
+    select *
+    into v_emp
+    from hr.employees
+    where employee_id=&emp_id;
+    
+    dbms_output.put_line('ID: ' || to_char(v_emp.employee_id));
+    dbms_output.put_line('nome: ' || to_char(v_emp.first_name));
+    dbms_output.put_line('salario: ' || to_char(v_emp.last_name));
+end;
+
+--caso de uso real usando o rowtype
+declare
+    v_cont dbaps.contrato%ROWTYPE;
+begin
+    select *
+    into v_cont
+    from dbaps.contrato
+    where cd_contrato=&cd_contrato;
+    
+    dbms_output.put_line('contrato: ' || to_char(v_cont.cd_contrato));
+    dbms_output.put_line('nome: ' || to_char(v_cont.nm_responsavel_financeiro));
+    dbms_output.put_line('cod_vendedor: ' || to_char(v_cont.cd_vendedor));
+end;
+
