@@ -33,6 +33,9 @@ begin
     dbms_output.put_line('ID: ' || to_char(v_emp.employee_id));
     dbms_output.put_line('nome: ' || to_char(v_emp.first_name));
     dbms_output.put_line('salario: ' || to_char(v_emp.last_name));
+    EXCEPTION --caso a matricula nao exista
+        when no_data_found then
+            dbms_output.put_line('matricula nao existe');
 end;
 
 --caso de uso real usando o rowtype
