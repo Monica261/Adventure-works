@@ -62,3 +62,38 @@ begin
   end loop;
   dbms_output.put_line('após o loop o valor é igual a: ' || to_Char(p_valor));
 end;
+
+-------------------------------------------
+
+declare
+  valor number := 0;
+begin
+  loop
+    dbms_output.put_line('Valor apresentado no interior do loop é igual a: ' || to_char(valor));
+    valor := valor + 1;
+    if valor < 15 then
+      continue;
+    end if;
+    dbms_output.put_line('No interior do loop, após a clausula continue, o valor é igual a:  ' || to_char(valor));
+    exit when valor > 15;
+  end loop;
+    dbms_output.put_line('Após o loop o valor é de: ' || to_char(valor));
+end;
+-------------------------------------------
+
+select cp.cd_con_pag, cp.vl_bruto_conta from dbamv.con_pag cp order by cd_con_pag desc
+
+--caso real
+declare
+  valor_cheio number;
+begin
+  select cp.vl_bruto_conta into valor_cheio from dbamv.con_pag cp where cp.cd_con_pag = 162736;
+  loop
+      dbms_output.put_line('Valor apresentado no interior do loop é igual a: ' || to_char(valor_cheio));
+      if valor_cheio > 90740 then
+        dbms_output.put_line('Valor apresentado alto: ' || to_char(valor_cheio));
+        continue;
+      end if;
+      exit when valor_cheio between 10000 and 15000;
+  end loop;
+end;
