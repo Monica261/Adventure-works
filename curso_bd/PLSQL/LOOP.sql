@@ -85,15 +85,16 @@ select cp.cd_con_pag, cp.vl_bruto_conta from dbamv.con_pag cp order by cd_con_pa
 
 --caso real
 declare
-  valor_cheio number;
+  valor_cheio varchar2(10);
 begin
   select cp.vl_bruto_conta into valor_cheio from dbamv.con_pag cp where cp.cd_con_pag = 162736;
   loop
-      dbms_output.put_line('Valor apresentado no interior do loop é igual a: ' || to_char(valor_cheio));
-      if valor_cheio > 90740 then
+      dbms_output.put_line('Valor apresentado no loop é igual a: ' || to_char(valor_cheio));
+      if valor_cheio >= 38130 then
         dbms_output.put_line('Valor apresentado alto: ' || to_char(valor_cheio));
         continue;
       end if;
-      exit when valor_cheio between 10000 and 15000;
+      exit when valor_cheio > 10000;
+      dbms_output.put_line('Valor exorbitante de conta a pagar: ' || to_char(valor_cheio));
   end loop;
 end;
