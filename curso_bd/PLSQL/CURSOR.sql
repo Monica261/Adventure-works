@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /*CURSOR*/
 
 set serveroutput on
@@ -57,8 +57,6 @@ end;
 
 -----------------------------------------
 
-=======
->>>>>>> 9efe112f9a5cc563c443bbfdb98300ec27fffaf0
 set serveroutput on
 
 --usando isopen
@@ -90,8 +88,42 @@ begin
     end loop;
 close c_top_10;
 end;
-<<<<<<< HEAD
 /
-=======
+
+-------------------------------------------------------
+--declaracao tipo de registro
+type TFuncionario is record(
+    viDFunc hr.employees.employee_id%type,
+    vNome hr.employees.first_name%type,
+    vSalario hr.employees.salary%type
+);
+
+vFunc TFuncionario;
+
+cursor cs_func%isopen is
+select a.employee_id, a.first_name, a.salary
+from hr.employees a
+order by 3 desc;
+
+begin
+ --abertura do cursor se ainda nao estiver aberto
+ if not cs_func%isopen then
+   open cs_func;
+ end if;
+ 
+ --executa loop
+ loop
+   --extrai daddos do cursor e avanca para o proximo
+   fetch cs_func into vFunc;
+   
+   --sai do loop quando nao existir mais intens para processaar
+   exit when cs_func%NOTFOUND;
+   
+   --imprime dados extraidos na tela
+   dbms_output.put_line(VFunc.viDFunc ||' - '|| VFunc.vNome ||' - '|| VFunc.vSalario);
+ end loop;
+ 
+--fechar o cursor
+close cs_func;
+end;
 /
->>>>>>> 9efe112f9a5cc563c443bbfdb98300ec27fffaf0
