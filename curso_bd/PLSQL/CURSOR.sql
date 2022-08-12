@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*CURSOR*/
 
 set serveroutput on
@@ -56,6 +57,8 @@ end;
 
 -----------------------------------------
 
+=======
+>>>>>>> 9efe112f9a5cc563c443bbfdb98300ec27fffaf0
 set serveroutput on
 
 --usando isopen
@@ -87,4 +90,8 @@ begin
     end loop;
 close c_top_10;
 end;
+<<<<<<< HEAD
 /
+=======
+/
+>>>>>>> 9efe112f9a5cc563c443bbfdb98300ec27fffaf0
