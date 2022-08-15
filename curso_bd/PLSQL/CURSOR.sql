@@ -1,4 +1,4 @@
-
+ 
 /*CURSOR*/
 
 set serveroutput on
@@ -127,3 +127,15 @@ begin
 close cs_func;
 end;
 /
+-------------------------------------------------------
+--cursor implicito oracle
+
+begin
+    --inicia o loop no conjunto ativo do cursor
+    for vFunc in (select a.employee_id, a.first_name, a.salary from hr.employees a order by 3 desc)
+    loop
+    
+        --imprimir dados na tela
+        dbms_output.put_line(vFunc.employee_id || ' - ' || vFunc.first_name || ' - ' || vFunc.salary);
+    end loop;
+end;
