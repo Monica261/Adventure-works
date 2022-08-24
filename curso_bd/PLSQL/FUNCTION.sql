@@ -15,23 +15,28 @@ end;
 
 select FN_mediapond(5,9,10,7) from dual;
 -------------------------------------------------------------------
-create or replace function fnc_departamento(
-    v_depart in varchar2
-)
-
-return varchar is
-v_nome varchar;
-
-begin
-    select first_name
-    from hr.employees
-    where first_name := v_nome;
-    
-    return v_nome;
+--funcao que retorna o salario do funcionario a partir do nome de departamento passados como parametro
+create or replace function fnc_retorna_salario( 
+    v_depap varchar2,
+    v_nome varchar2
+     
+) 
+ 
+return number is 
+   resultado number;
+ 
+begin 
+    select salary 
+    into resultado
+    from hr.employees 
+    where job_id = v_depap
+    and first_name = v_nome;
+     
+    return resultado; 
 end;
-/
 
-select fnc_departamento('IT_PROG', 'BERNST') from dual;
+select fnc_retorna_salario('IT_PROG', 'David') from dual;
+
 -------------------------------------------------------------------
 --funcao sem parametros
 create or replace function fnc_funcionario
