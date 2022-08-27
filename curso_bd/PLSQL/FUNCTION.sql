@@ -14,7 +14,9 @@ begin
 end;
 
 select FN_mediapond(5,9,10,7) from dual;
+
 -------------------------------------------------------------------
+<<<<<<< HEAD
 --funcao que retorna o salario do funcionario a partir do nome de departamento passados como parametro
 create or replace function fnc_retorna_salario( 
     v_depap varchar2,
@@ -36,6 +38,60 @@ begin
 end;
 
 select fnc_retorna_salario('IT_PROG', 'David') from dual;
+=======
+--retorna o departamento do funcionario conforme passa o nome e sobrenome na chamada da funcao
+
+create or replace function fnc_departamento(
+   -- v_depart in varchar2,
+    v_nome hr.employees.first_name%TYPE,
+    v_sobrenome hr.employees.last_name%TYPE
+)
+
+
+return varchar2 is
+regra varchar2(500);
+
+begin
+    select job_id
+    into regra
+    from hr.employees
+    where first_name = v_nome
+    and last_name = v_sobrenome;
+    
+    return regra;
+end;
+
+select fnc_departamento('David', 'Austin') from dual;
+
+-------------------------------------------------------------------
+--retornar o salario de acordo com o departamento e o nome
+create or replace function fnc_retorna_salario(
+    v_nome varchar2,
+    v_depap varchar2
+)
+
+return number is
+proposta number(20);
+
+begin
+    select salary
+    into proposta
+    from hr.employees
+    where first_name = v_nome
+    and job_id = v_depap;
+    
+    return proposta;
+end;
+
+
+select first_name, (salary * 0.35) SALARIO_COM_AUMENTO, 
+fnc_retorna_salario('David', 'IT_PROG') SALARIO_ATUAL
+from hr.employees
+where first_name = 'David' 
+and job_id = 'IT_PROG';
+
+select fnc_retorna_salario('David', 'IT_PROG') from dual;
+>>>>>>> ff5a367068c941a02aaa646c3d16fd21e13c5ec2
 
 -------------------------------------------------------------------
 --funcao sem parametros
