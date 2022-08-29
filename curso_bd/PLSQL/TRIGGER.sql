@@ -52,6 +52,71 @@ where codigo = 1;
 
 select * from log_salario;
 
+--trigger para registrar a operacao realizada na tabela de log
+
+create or replace trigger trg_salario_aud_operacao
+after insert or delete or update on empregados
+for each row
+declare
+    p_oper varchar2(10);
+begin
+    if inserting then
+        p_oper := 'insert';
+            insert into log_salario(
+        codigo,
+        salario_anterior,
+        salario_atual,
+        data_alteracao,
+        usuario,
+        operacao
+    )
+    values(
+        :new.codigo,
+        :old.salario,
+        :new.salario,
+        sysdate,
+        user,
+        p_oper
+    );
+    elsif deleting then
+            p_oper := 'deletado';
+            insert into log_salario(
+        codigo,
+        salario_anterior,
+        salario_atual,
+        data_alteracao,
+        usuario,
+        operacao
+    )
+    values(
+        :new.codigo,
+        :old.salario,
+        :new.salario,
+        sysdate,
+        user,
+        p_oper
+    );
+    elsif updating then
+        p_oper := 'update';
+        insert into log_salario(
+        codigo,
+        salario_anterior,
+        salario_atual,
+        data_alteracao,
+        usuario,
+        operacao
+    )
+    values(
+        :new.codigo,
+        :old.salario,
+        :new.salario,
+        sysdate,
+        user,
+        p_oper
+    );
+    end if;
+end;
+
 --exemplo de trigger de restricao de horario
 create or replace trigger trg_restricao_empregados
 before insert or delete or update
