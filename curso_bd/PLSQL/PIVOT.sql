@@ -49,4 +49,16 @@ pivot(
 sum(qtde)
 for mes in (1,2,3,4,5,6)
 )
-order by produto
+order by produto  
+
+--caso real
+--select * from hr.employees
+select * from(
+select first_name, last_name, salary, hire_date, job_id from hr.employees
+)
+pivot(
+sum(salary)
+for job_id in ('AD_PRES' as "AD_PRES", 'AD_VP' as "AD_VP", 'IT_PROG' as "IT_PROG", 'FI_ACCOUNT' as "FI_ACCOUNT", 'ST_CLERK' as "ST_CLERK", 'ST_MAN' as "ST_MAN") 
+--for job_id in ('depto' as "depto")
+)
+order by first_name
