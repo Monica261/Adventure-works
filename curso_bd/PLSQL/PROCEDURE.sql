@@ -1,4 +1,3 @@
-
 /*CRIANDO PROCEDURE*/ 
 --AULA https://youtu.be/QLpIPnwADeY
 
@@ -29,3 +28,27 @@ END SP_CONFERE_NM_FUNCIONARIO;
 BEGIN
     SP_CONFERE_NM_FUNCIONARIO(P_ID_FUNCIONARIO => 102,P_NM_FUNCIONARIO => 'LEX');
 END;
+
+------------------------------------------------------------------------------------
+
+create or replace procedure detalhes_dos_funcionarios is
+    cursor emp_cur is
+        select first_name, last_name, salary from hr.employees;
+    emp_rec emp_cur%rowtype; ---recebe todas as infos do cursor sem precisar declarar variavel
+begin
+    for emp_rec in emp_cur
+    loop
+        dbms_output.put_line('Nome do funcionario: ' || emp_rec.first_name);
+        dbms_output.put_line('Sobrenome do funcionario: ' || emp_rec.last_name);
+        dbms_output.put_line('Salario do funcionario: ' || emp_rec.salary);
+        dbms_output.put_line('-------------------------------------------------------');
+    end loop;
+end;
+
+--executando a procedure
+begin
+    detalhes_dos_funcionarios;
+end;
+
+--outra forma de execução
+execute detalhes_dos_funcionarios;
