@@ -52,3 +52,31 @@ end;
 
 --outra forma de execução
 execute detalhes_dos_funcionarios;
+
+------------------------------
+create or replace procedure proc_info_mens
+is
+  cursor fun_mens is
+  select mc.cd_contrato, mc.cd_mens_contrato, mc.vl_mensalidade
+  from dbaps.mens_contrato mc
+  where mc.cd_contrato = 92908;
+  
+  fun_cont fun_mens%rowtype;
+begin
+  for fun_cont in fun_mens
+    loop
+      dbms_output.put_line('Código contrato: ' || fun_cont.cd_contrato ||
+      'Titulo: ' || fun_cont.cd_mens_contrato || 'Valor mens: ' || fun_cont.vl_mensalidade);
+    end loop;
+   /* exception
+      when others then
+        dbms_output.put_line('Erro: ' || sqlerrem);*/
+end;
+  
+alter procedure dbaps.proc_info_mens recompile;
+
+begin
+  proc_info_mens;
+end;
+
+execute dbaps.proc_info_mens;
