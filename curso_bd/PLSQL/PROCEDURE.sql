@@ -80,3 +80,131 @@ begin
 end;
 
 execute dbaps.proc_info_mens;
+
+
+------------------------------
+--procedure calculadora
+create or replace procedure proc_calc(
+    operacao in varchar,
+    pnum1 in number,
+    pnum2 in number,
+    retorno out number
+)
+
+is 
+msg_outras exception;
+
+begin
+if operacao = 'A' then
+    retorno := pnum1 + pnum2;
+    elsif operacao = 'S' then
+        retorno := pnum1 - pnum2;
+    elsif operacao = 'M' then
+        retorno := pnum1 * pnum2;
+    elsif operacao = 'D' then
+        retorno := pnum1 / pnum2;
+else
+    raise msg_outras;
+end if;
+    exception
+        when msg_outras then
+        dbms_output.put_line('Erro não catalogado');
+    when others then
+        dbms_output.put_line('Erro: '||SQLERRM);
+end;
+
+--execucao
+declare
+retorno number:=0;
+begin
+   proc_calc('S', 5, 2, retorno);
+   DBMS_OUTPUT.put_line(retorno);
+end;
+
+------------------------------------
+--procedure que faz copia de tabela ao ser executada
+select * from hr.employees;
+
+--criando tabela de copia
+CREATE TABLE EMPLOYEES_COPIA 
+   (	
+   "EMPLOYEE_ID" NUMBER(6,0), 
+	"FIRST_NAME" VARCHAR2(20 BYTE), 
+	"LAST_NAME" VARCHAR2(25 BYTE) CONSTRAINT "EMP_LAST_NAME_NN" NOT NULL ENABLE, 
+	"EMAIL" VARCHAR2(25 BYTE) CONSTRAINT "EMP_EMAIL_NN" NOT NULL ENABLE, 
+	"PHONE_NUMBER" VARCHAR2(20 BYTE), 
+	"HIRE_DATE" DATE CONSTRAINT "EMP_HIRE_DATE_NN" NOT NULL ENABLE, 
+	"JOB_ID" VARCHAR2(10 BYTE) CONSTRAINT "EMP_JOB_NN" NOT NULL ENABLE, 
+	"SALARY" NUMBER(8,2), 
+	"COMMISSION_PCT" NUMBER(2,2), 
+	"MANAGER_ID" NUMBER(6,0), 
+	"DEPARTMENT_ID" NUMBER(4,0)
+);
+
+--criando proc
+create or replace procedure proc_copia_func is
+
+begin
+    for func in (select * from hr.employees)
+    loop
+        insert into employees_copia(EMPLOYEE_ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, HIRE_DATE, JOB_ID, SALARY, COMMISSION_PCT, MANAGER_ID, DEPARTMENT_ID)
+        values(func.employee_id, func.first_name, func.last_name, func.email, func.phone_number, func.hire_date, func.job_id, func.salary, func.commission_pct, func.manager_id, func.department_id);
+    end loop;
+commit;
+exception
+    when others then
+        dbms_output.put_line('Erro: '||SQLERRM);
+end proc_copia_func;
+
+execute proc_copia_func;
+
+SELECT * from employees_copia;
+
+------------------------------------
+/*PROCEDURES DE ESTOQUE*/
+create table material(
+cod_mat int primary key,
+descricao varchar2(50) not null,
+preco_unit number(10,2)
+);
+
+create sequence seq_cod_mat
+increment by 1
+start with 1
+order
+cache 10;
+
+create table estoque(
+cod_mat int primary key not null,
+saldo decimal(10, 2) null
+);
+
+create table estoque_lote(
+cod_mat int not null,
+lote varchar2(15) not null,
+saldo decimal(10,2) null,
+foreign key (cod_mat) references material(cod_mat),
+primary key(cod_mat, lote)
+);
+
+create table mov_estoque(
+transacao int primary key not null,
+mov varchar2(1) not null,
+cod_mat int not null,
+lote varchar(15) not null,
+qtd int not null,
+usuario varchar2(30) not null,
+dt_hor_mov date not null
+);
+
+create sequence seq_mov_estoque
+increment by 1
+start with 1
+order
+cache 10;
+
+alter table estoque add foreign key(cod_mat) references material(cod_mat);
+
+alter table mov_estoque add foreign key(cod_mat) references material(cod_mat);
+
+insert into material values(seq_cod_mat.nextval, 'SMART TV 45', 2200.50);
