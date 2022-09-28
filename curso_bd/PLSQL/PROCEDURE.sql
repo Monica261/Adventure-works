@@ -208,3 +208,18 @@ alter table estoque add foreign key(cod_mat) references material(cod_mat);
 alter table mov_estoque add foreign key(cod_mat) references material(cod_mat);
 
 insert into material values(seq_cod_mat.nextval, 'SMART TV 45', 2200.50);
+insert into material values(seq_cod_mat.nextval, 'CELULAR SAMSUNG', 3200.90);
+insert into material values(seq_cod_mat.nextval, 'GELADEIRA BRASTEMP', 4500.00);
+
+set serveroutput on
+
+--pegar usuarioo, senha e IP
+BEGIN
+ dbms_output.put_line(ora_login_user||' ' ||ora_des_encrypted_password ||' '||ora_client_ip_address|| ' is the current user.');
+ END;
+ 
+ --usuarios logados com sessões ativas
+ SELECT USERNAME, STATUS
+ FROM GV$SESSION
+ WHERE USERNAME IS NOT NULL
+ ORDER BY USERNAME ;
